@@ -1,0 +1,28 @@
+[theme="light"] {
+    --color-primary: #ff5d90;
+
+    --background-app: #f7f7f7;
+    --background-panel: white;
+    --background-selected: #7367f0;
+    --background-hover: #7367f01f;
+    --background-hover-row: #f8f8f8;
+
+    --text-blue: #7367f0;
+    --background-blue: #7367f01f;
+    --text-red: #ea5455;
+    --background-red: #fceaea;
+    --text-yellow: #f99014;
+    --background-yellow: bisque;
+    --text-green: #28c76f;
+    --background-green: #e5f8ed;
+
+    --text-pink: #ff5d90;
+    --text-disable: #625f6e;
+    --text-disable-lighter: #b9b9c3;
+    --text-white: white;
+
+    --box-shadow-gray: rgb(34 41 47 / 5%);
+    --box-shadow-blue: #7367f0;
+    --break-line: #625f6e36;
+}
+

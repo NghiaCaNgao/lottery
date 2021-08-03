@@ -1,32 +1,47 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+  <el-container class="app">
+    <el-header>
+      <div class="navbar">
+        <div class="navbar__left">
+          <div class="logo">
+            <img src="./assets/logo.png" height="32px" />
+          </div>
+          <h1>Happy Loterry</h1>
+        </div>
+        <div class="navbar__link">
+          <router-link to="/">Play</router-link>
+          <router-link to="/create">Create</router-link>
+        </div>
+        <div class="navbar__tool">
+          <button role="btn">
+            <unicon name="qrcode-scan"></unicon>
+          </button>
+          <button role="btn">
+            <unicon name="share"></unicon>
+          </button>
+        </div>
+      </div>
+    </el-header>
+    <el-main>
+      <transition
+        appear
+        enter-active-class="animated animate__fadeIn"
+        leave-active-class="animated animate__fadeOut"
+        mode="out-in"
+      >
+        <router-view></router-view>
+      </transition>
+    </el-main>
+  </el-container>
 </template>
 
+<script>
+export default {
+  name: "app",
+};
+</script>
+
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
+@import "./style.scss";
+@import "./theme.css";
 </style>
