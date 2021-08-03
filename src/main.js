@@ -8,13 +8,15 @@ import Unicon from 'vue-unicons/dist/vue-unicons-vue2.umd'
 import 'element-ui/lib/theme-chalk/index.css';
 import 'animate.css'
 import {
+  uniFeedback,
   uniQrcodeScan,
   uniShare
 } from 'vue-unicons/dist/icons'
 
 Unicon.add([
   uniShare,
-  uniQrcodeScan
+  uniQrcodeScan,
+  uniFeedback
 ])
 
 Vue.use(Unicon)

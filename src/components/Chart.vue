@@ -1,6 +1,6 @@
 <template>
   <div>
-      <apexchart width="500" type="line" :options="options" :series="series"></apexchart>
+    <apexchart width="380" type="donut" :options="options" :series="series"></apexchart>
   </div>
 </template>
 
@@ -9,20 +9,8 @@ export default {
   name: "chart",
   data() {
     return {
-      options: {
-        chart: {
-          id: "vuechart-example",
-        },
-        xaxis: {
-          categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998],
-        },
-      },
-      series: [
-        {
-          name: "series-1",
-          data: [30, 40, 45, 50, 49, 60, 70, 91],
-        },
-      ],
+      options: {},
+      series: [44, 55, 41, 17, 15],
     };
   },
 };
