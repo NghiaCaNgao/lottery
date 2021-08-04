@@ -1,13 +1,7 @@
 <template>
   <div class="page">
     <div class="panel animate__animated animate__bounceIn playground">
-      <div class="lottery-circle">
-        <chart></chart>
-      </div>
-      <div class="force-wrap">
-        <span>Force</span>
-        <el-progress :percentage="percentage" :color="colors"></el-progress>
-      </div>
+      <chart></chart>
     </div>
 
     <div class="detail-player">
@@ -50,7 +44,7 @@
                 <span v-else class="value"> {{ item.action.value }}</span>
               </p>
             </div>
-            <span>{{ formatTime(item.timestame) }}</span>
+            <span>{{ formatTime(item.timestamp) }}</span>
           </div>
         </div>
       </div>
@@ -67,244 +61,6 @@ export default {
     UserIcon,
   },
   name: "play",
-  data() {
-    return {
-      percentage: 20,
-      colors: [
-        { color: "#f56c6c", percentage: 20 },
-        { color: "#e6a23c", percentage: 40 },
-        { color: "#5cb87a", percentage: 60 },
-        { color: "#1989fa", percentage: 80 },
-        { color: "#6f7ad3", percentage: 100 },
-      ],
-      turn: 4,
-      lastUserPlay: {
-        id: "123",
-        hasNickname: false,
-        hasImage: true,
-        hasIcon: true,
-        name: "abc,xyz",
-        nickname: "bo cap chua",
-        image:
-          "https://scontent.fhan4-1.fna.fbcdn.net/v/t1.6435-1/p200x200/186566653_457732428659937_110629599515262609_n.jpg?_nc_cat=105&ccb=1-3&_nc_sid=7206a8&_nc_ohc=1RjdlEUAE_AAX-T_n2d&tn=Ss1qQxEVQs5aJzur&_nc_ht=scontent.fhan4-1.fna&oh=b90a83f7ecf8a61d44e32a5642b0249c&oe=612D9B5D",
-        icon: "feedback",
-        shortName: "BC",
-        color: "blue",
-      },
-      users: [
-        {
-          id: "123",
-          hasNickname: false,
-          hasImage: false,
-          hasIcon: true,
-          name: "abc,xyz",
-          nickname: "bo cap chua",
-          image:
-            "https://scontent.fhan4-1.fna.fbcdn.net/v/t1.6435-1/p200x200/186566653_457732428659937_110629599515262609_n.jpg?_nc_cat=105&ccb=1-3&_nc_sid=7206a8&_nc_ohc=1RjdlEUAE_AAX-T_n2d&tn=Ss1qQxEVQs5aJzur&_nc_ht=scontent.fhan4-1.fna&oh=b90a83f7ecf8a61d44e32a5642b0249c&oe=612D9B5D",
-          icon: "feedback",
-          shortName: "BC",
-          color: "blue",
-          comeinTime: 1628006700096,
-        },
-        {
-          id: "456",
-          hasNickname: false,
-          hasImage: true,
-          hasIcon: false,
-          name: "abc,xyz",
-          nickname: "bo cap chua",
-          image:
-            "https://scontent.fhan4-1.fna.fbcdn.net/v/t1.6435-1/p200x200/186566653_457732428659937_110629599515262609_n.jpg?_nc_cat=105&ccb=1-3&_nc_sid=7206a8&_nc_ohc=1RjdlEUAE_AAX-T_n2d&tn=Ss1qQxEVQs5aJzur&_nc_ht=scontent.fhan4-1.fna&oh=b90a83f7ecf8a61d44e32a5642b0249c&oe=612D9B5D",
-          icon: "feedback",
-          shortName: "BC",
-          color: "blue",
-          comeinTime: 1628006700096,
-        },
-        {
-          id: "789",
-          hasNickname: true,
-          hasImage: false,
-          hasIcon: false,
-          name: "abc,xyz",
-          nickname: "bo cap chua",
-          image:
-            "https://scontent.fhan4-1.fna.fbcdn.net/v/t1.6435-1/p200x200/186566653_457732428659937_110629599515262609_n.jpg?_nc_cat=105&ccb=1-3&_nc_sid=7206a8&_nc_ohc=1RjdlEUAE_AAX-T_n2d&tn=Ss1qQxEVQs5aJzur&_nc_ht=scontent.fhan4-1.fna&oh=b90a83f7ecf8a61d44e32a5642b0249c&oe=612D9B5D",
-          icon: "feedback",
-          shortName: "BC",
-          color: "blue",
-          comeinTime: 1628006700096,
-        },
-        {
-          id: "101112",
-          hasNickname: true,
-          hasImage: false,
-          hasIcon: false,
-          name: "abc,xyz",
-          nickname: "bo cap chua",
-          image:
-            "https://scontent.fhan4-1.fna.fbcdn.net/v/t1.6435-1/p200x200/186566653_457732428659937_110629599515262609_n.jpg?_nc_cat=105&ccb=1-3&_nc_sid=7206a8&_nc_ohc=1RjdlEUAE_AAX-T_n2d&tn=Ss1qQxEVQs5aJzur&_nc_ht=scontent.fhan4-1.fna&oh=b90a83f7ecf8a61d44e32a5642b0249c&oe=612D9B5D",
-          icon: "feedback",
-          shortName: "BC",
-          color: "blue",
-          comeinTime: 1628006700096,
-        },
-        {
-          id: "131415",
-          hasNickname: true,
-          hasImage: false,
-          hasIcon: false,
-          name: "abc,xyz",
-          nickname: "bo cap chua",
-          image:
-            "https://scontent.fhan4-1.fna.fbcdn.net/v/t1.6435-1/p200x200/186566653_457732428659937_110629599515262609_n.jpg?_nc_cat=105&ccb=1-3&_nc_sid=7206a8&_nc_ohc=1RjdlEUAE_AAX-T_n2d&tn=Ss1qQxEVQs5aJzur&_nc_ht=scontent.fhan4-1.fna&oh=b90a83f7ecf8a61d44e32a5642b0249c&oe=612D9B5D",
-          icon: "feedback",
-          shortName: "BC",
-          color: "blue",
-          comeinTime: 1628006700096,
-        },
-        {
-          id: "161718",
-          hasNickname: true,
-          hasImage: false,
-          hasIcon: false,
-          name: "abc,xyz",
-          nickname: "bo cap chua",
-          image:
-            "https://scontent.fhan4-1.fna.fbcdn.net/v/t1.6435-1/p200x200/186566653_457732428659937_110629599515262609_n.jpg?_nc_cat=105&ccb=1-3&_nc_sid=7206a8&_nc_ohc=1RjdlEUAE_AAX-T_n2d&tn=Ss1qQxEVQs5aJzur&_nc_ht=scontent.fhan4-1.fna&oh=b90a83f7ecf8a61d44e32a5642b0249c&oe=612D9B5D",
-          icon: "feedback",
-          shortName: "BC",
-          color: "blue",
-          comeinTime: 1628006700096,
-        },
-        {
-          id: "192021",
-          hasNickname: true,
-          hasImage: false,
-          hasIcon: false,
-          name: "abc,xyz",
-          nickname: "bo cap chua",
-          image:
-            "https://scontent.fhan4-1.fna.fbcdn.net/v/t1.6435-1/p200x200/186566653_457732428659937_110629599515262609_n.jpg?_nc_cat=105&ccb=1-3&_nc_sid=7206a8&_nc_ohc=1RjdlEUAE_AAX-T_n2d&tn=Ss1qQxEVQs5aJzur&_nc_ht=scontent.fhan4-1.fna&oh=b90a83f7ecf8a61d44e32a5642b0249c&oe=612D9B5D",
-          icon: "feedback",
-          shortName: "BC",
-          color: "blue",
-          comeinTime: 1628006700096,
-        },
-      ],
-      history: [
-        {
-          id: "abc",
-          user: {
-            id: "123",
-            hasNickname: false,
-            hasImage: false,
-            hasIcon: true,
-            name: "abc,xyz",
-            nickname: "bo cap chua",
-            image:
-              "https://scontent.fhan4-1.fna.fbcdn.net/v/t1.6435-1/p200x200/186566653_457732428659937_110629599515262609_n.jpg?_nc_cat=105&ccb=1-3&_nc_sid=7206a8&_nc_ohc=1RjdlEUAE_AAX-T_n2d&tn=Ss1qQxEVQs5aJzur&_nc_ht=scontent.fhan4-1.fna&oh=b90a83f7ecf8a61d44e32a5642b0249c&oe=612D9B5D",
-            icon: "feedback",
-            shortName: "BC",
-            color: "blue",
-            comeinTime: 1628006700096,
-          },
-          action: {
-            value: "",
-            action: "comein",
-          },
-          timestame: 1628041002684,
-        },
-        {
-          id: "def",
-          user: {
-            id: "123",
-            hasNickname: false,
-            hasImage: false,
-            hasIcon: true,
-            name: "abc,xyz",
-            nickname: "bo cap chua",
-            image:
-              "https://scontent.fhan4-1.fna.fbcdn.net/v/t1.6435-1/p200x200/186566653_457732428659937_110629599515262609_n.jpg?_nc_cat=105&ccb=1-3&_nc_sid=7206a8&_nc_ohc=1RjdlEUAE_AAX-T_n2d&tn=Ss1qQxEVQs5aJzur&_nc_ht=scontent.fhan4-1.fna&oh=b90a83f7ecf8a61d44e32a5642b0249c&oe=612D9B5D",
-            icon: "feedback",
-            shortName: "BC",
-            color: "blue",
-            comeinTime: 1628006700096,
-          },
-          action: {
-            value: "",
-            action: "comein",
-          },
-          timestame: 1628041002684,
-        },
-        {
-          id: "ghi",
-          user: {
-            id: "123",
-            hasNickname: false,
-            hasImage: false,
-            hasIcon: true,
-            name: "abc,xyz",
-            nickname: "bo cap chua",
-            image:
-              "https://scontent.fhan4-1.fna.fbcdn.net/v/t1.6435-1/p200x200/186566653_457732428659937_110629599515262609_n.jpg?_nc_cat=105&ccb=1-3&_nc_sid=7206a8&_nc_ohc=1RjdlEUAE_AAX-T_n2d&tn=Ss1qQxEVQs5aJzur&_nc_ht=scontent.fhan4-1.fna&oh=b90a83f7ecf8a61d44e32a5642b0249c&oe=612D9B5D",
-            icon: "feedback",
-            shortName: "BC",
-            color: "blue",
-            comeinTime: 1628006700096,
-          },
-          action: {
-            value: "",
-            action: "comein",
-          },
-          timestame: 1628041002684,
-        },
-        {
-          id: "mnj",
-          user: {
-            id: "123",
-            hasNickname: false,
-            hasImage: false,
-            hasIcon: true,
-            name: "abc,xyz",
-            nickname: "bo cap chua",
-            image:
-              "https://scontent.fhan4-1.fna.fbcdn.net/v/t1.6435-1/p200x200/186566653_457732428659937_110629599515262609_n.jpg?_nc_cat=105&ccb=1-3&_nc_sid=7206a8&_nc_ohc=1RjdlEUAE_AAX-T_n2d&tn=Ss1qQxEVQs5aJzur&_nc_ht=scontent.fhan4-1.fna&oh=b90a83f7ecf8a61d44e32a5642b0249c&oe=612D9B5D",
-            icon: "feedback",
-            shortName: "BC",
-            color: "blue",
-            comeinTime: 1628006700096,
-          },
-          action: {
-            value: "",
-            action: "comein",
-          },
-          timestame: 1628041002684,
-        },
-        {
-          id: "yjk",
-          user: {
-            id: "123",
-            hasNickname: false,
-            hasImage: false,
-            hasIcon: true,
-            name: "abc,xyz",
-            nickname: "bo cap chua",
-            image:
-              "https://scontent.fhan4-1.fna.fbcdn.net/v/t1.6435-1/p200x200/186566653_457732428659937_110629599515262609_n.jpg?_nc_cat=105&ccb=1-3&_nc_sid=7206a8&_nc_ohc=1RjdlEUAE_AAX-T_n2d&tn=Ss1qQxEVQs5aJzur&_nc_ht=scontent.fhan4-1.fna&oh=b90a83f7ecf8a61d44e32a5642b0249c&oe=612D9B5D",
-            icon: "feedback",
-            shortName: "BC",
-            color: "blue",
-            comeinTime: 1628006700096,
-          },
-          action: {
-            value: "",
-            action: "comein",
-          },
-          timestame: 1628041002684,
-        },
-      ],
-    };
-  },
   methods: {
     processTime(time) {
       let bet = (Date.now() - time) / 1000;
@@ -317,6 +73,31 @@ export default {
       let min = t.getMinutes();
       let hour = t.getHours();
       return `${hour}:${min}`;
+    },
+  },
+  computed: {
+    turn: {
+      get() {
+        return this.$store.state.turn;
+      },
+      set() {
+        this.$store.state.commit("changeTurn");
+      },
+    },
+    users: {
+      get() {
+        return this.$store.state.onlineUser;
+      },
+    },
+    history: {
+      get() {
+        return this.$store.state.history;
+      },
+    },
+    lastUserPlay: {
+      get() {
+        return this.$store.state.lastUserPlay;
+      },
     },
   },
 };

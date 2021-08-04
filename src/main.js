@@ -7,11 +7,14 @@ import locale from 'element-ui/lib/locale/lang/en'
 import Unicon from 'vue-unicons/dist/vue-unicons-vue2.umd'
 import 'element-ui/lib/theme-chalk/index.css';
 import 'animate.css'
+
 import {
   uniFeedback,
   uniQrcodeScan,
   uniShare
 } from 'vue-unicons/dist/icons'
+
+import store from './store'
 
 Unicon.add([
   uniShare,
@@ -29,5 +32,6 @@ Vue.config.productionTip = false
 
 new Vue({
   router,
+  store,
   render: h => h(App)
 }).$mount('#app')
