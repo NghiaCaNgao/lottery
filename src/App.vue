@@ -25,9 +25,10 @@
     <el-main>
       <transition
         appear
-        enter-active-class="animated animate__fadeIn"
-        leave-active-class="animated animate__fadeOut"
+        name="fade"
         mode="out-in"
+        enter-active-class="animate__animated animate__fadeIn"
+        leave-active-class="animate__animated animate__fadeOut"
       >
         <router-view></router-view>
       </transition>

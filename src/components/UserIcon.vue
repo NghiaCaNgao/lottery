@@ -6,10 +6,12 @@
         'icon-red': item.color === 'red',
         'icon-green': item.color === 'green',
         'icon-blue': item.color === 'blue',
+        'icon-large': size === 'large',
+        'icon-small': size === 'small',
       }"
     >
-      <div v-if="item.hasImage">
-        <img :src="item.image" :alt="'avatar of' + item.name" height="48px" />
+      <div v-if="item.hasImage" class="icon-image">
+        <img :src="item.image" :alt="'avatar of' + item.name"/>
       </div>
       <div v-else>
         <unicon v-if="item.hasIcon" :name="item.icon"></unicon>
@@ -17,8 +19,10 @@
       </div>
     </div>
     <!-- end of icon condition -->
-    <h1 v-if="item.hasNickname">{{ item.nickname }}</h1>
-    <h1 v-else>{{ item.name }}</h1>
+    <div v-if="hasName">
+      <h1 v-if="item.hasNickname">{{ item.nickname }}</h1>
+      <h1 v-else>{{ item.name }}</h1>
+    </div>
   </div>
   <!-- end of icon condition -->
 </template>
@@ -43,6 +47,18 @@ export default {
           shortName: "BC",
           color: "blue",
         };
+      },
+    },
+    size: {
+      type: String,
+      default() {
+        return "large";
+      },
+    },
+    hasName: {
+      type: Boolean,
+      default() {
+        return true;
       },
     },
   },
