@@ -50,7 +50,6 @@ import firebase from "firebase/app";
 import "firebase/analytics";
 import "firebase/auth";
 import "firebase/firestore";
-// var db = firebase.firestore();
 
 export default {
   name: "app",
@@ -78,21 +77,13 @@ export default {
     registerCurrentUser(user) {
       this.$store.commit("updateCurrentUser", user);
     },
-
-    uploadUserData(user) {
-      console.log(user);
-      // db.collection("users")
-      //   .add(user)
-      //   .catch((error) => {
-      //     console.error("Error adding document: ", error);
-      //   });
-    },
   },
   created() {
     // Intial
     const firebaseConfig = {
       apiKey: "AIzaSyD_dtwhN0mXpznaMrLVPVIsCdirK5ViZ8U",
       authDomain: "lottery-ncn.firebaseapp.com",
+      databaseURL: "https://lottery-ncn-default-rtdb.asia-southeast1.firebasedatabase.app/",
       projectId: "lottery-ncn",
       storageBucket: "lottery-ncn.appspot.com",
       messagingSenderId: "667286825039",
@@ -112,11 +103,10 @@ export default {
         this.registerCurrentUser({
           name: user.displayName,
           image: user.photoURL,
-          uid: user.uid,
           email: user.email,
           hasUser: true,
         });
-        this.uploadUserData();
+
         this.showAlert("Wellcome", "You are in the room");
       } else {
         this.registerCurrentUser({
@@ -126,6 +116,7 @@ export default {
           email: undefined,
           hasUser: false,
         });
+
         swal({
           title: "Account alert",
           text: "You must have signed in to continue",

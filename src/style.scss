@@ -105,6 +105,7 @@
     width: 100%;
     background-color: var(--background-panel);
     border-radius: 7px;
+    overflow: hidden;
     @include box-shadow;
 
     &__title {
@@ -176,7 +177,7 @@
             margin: 5px;
             text-decoration: none;
             color: var(--text-green);
-            font-size: 1em;
+            font-size: 0.8em;
             font-weight: 700;
             background-color: var(--background-green);
             padding: 4px 10px 4px 4px;
