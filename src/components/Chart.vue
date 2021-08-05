@@ -1,5 +1,6 @@
 <template>
-  <div class="lottery-circle flex-center">
+  <div class="lottery flex-center">
+    <!-- Rotation circle -->
     <div>
       <apexchart
         width="380"
@@ -14,23 +15,29 @@
       </div>
     </div>
 
+    <!-- Force line -->
     <div class="force-wrap">
       <span>Force</span>
-      <el-progress :percentage="tmp_force" :color="colors"></el-progress>
+      <el-progress :percentage="force" :color="colors"></el-progress>
     </div>
   </div>
 </template>
 
 <script>
 import swal from "sweetalert";
+
+// Interval effect on force line
 var strigger = null;
+
 export default {
   name: "chart",
   data() {
     return {
       dialogVisible: true,
-      tmp_force: 0,
+      force: 0,
       sign: 1,
+
+      // Color of force line
       colors: [
         { color: "#f56c6c", percentage: 20 },
         { color: "#e6a23c", percentage: 40 },
@@ -38,6 +45,8 @@ export default {
         { color: "#1989fa", percentage: 80 },
         { color: "#6f7ad3", percentage: 100 },
       ],
+
+      // Option for rotation circle
       options: {
         legend: {
           show: false,
@@ -51,26 +60,21 @@ export default {
         },
       },
       series: [1, 1, 1, 1, 1],
+
+      // Constant effect rotation
       const_time_unit: 0.1,
       const_deg_unit: 0.07 * 360,
       deg: 0,
     };
   },
+
   computed: {
-    turn: {
+    turns: {
       get() {
-        return this.$store.state.turn;
+        return this.$store.state.turns;
       },
       set(value) {
         this.$store.commit("changeTurn", value);
-      },
-    },
-    force: {
-      get() {
-        return this.$store.state.force;
-      },
-      set() {
-        this.$store.commit("changeForce");
       },
     },
     lastUserPlay: {
@@ -90,6 +94,7 @@ export default {
       },
     },
   },
+
   methods: {
     generateID() {
       let ID = "";
@@ -116,30 +121,30 @@ export default {
       let circle = document.getElementById("circle");
 
       // Set up constance
-      if (this.tmp_force < 20) {
+      if (this.force < 20) {
         this.const_deg_unit = 0.03 * 360;
         this.const_time_unit = 0.5;
-      } else if (this.tmp_force < 40) {
+      } else if (this.force < 40) {
         this.const_deg_unit = 0.1 * 360;
         this.const_time_unit = 0.3;
-      } else if (this.tmp_force < 60) {
+      } else if (this.force < 60) {
         this.const_deg_unit = 0.2 * 360;
         this.const_time_unit = 0.3;
-      } else if (this.tmp_force < 80) {
+      } else if (this.force < 80) {
         this.const_deg_unit = 0.3 * 360;
         this.const_time_unit = 0.4;
-      } else if (this.tmp_force < 100) {
+      } else if (this.force < 100) {
         this.const_deg_unit = 0.3 * 360;
         this.const_time_unit = 0.4;
       }
 
-      // Cal time and number of rotation
-      let time = this.const_time_unit * this.tmp_force;
-      let plus = this.const_deg_unit * this.tmp_force;
+      // Calc time and number of rotations
+      let time = this.const_time_unit * this.force;
+      let plus = this.const_deg_unit * this.force;
       this.deg += plus;
       let value = 4 - (Math.floor(this.deg / (360 / 5)) % 5);
 
-      console.log(this.tmp_force, time, this.deg);
+      console.log(this.force, time, this.deg);
 
       // play rotation
       circle.style.transition = `transform ${time}s`;
@@ -149,6 +154,7 @@ export default {
         // Create History
         let value_name = this.options.labels[value];
         this.createHistoryEvent(value_name);
+        // Alert
         swal({
           title: "You have been in " + value_name,
           icon: "info",
@@ -159,9 +165,9 @@ export default {
     },
 
     choseForce() {
-      if (this.tmp_force >= 100) this.sign = -1;
-      else if (this.tmp_force <= 0) this.sign = 1;
-      this.tmp_force += this.sign;
+      if (this.force >= 100) this.sign = -1;
+      else if (this.force <= 0) this.sign = 1;
+      this.force += this.sign;
     },
   },
 
@@ -179,7 +185,7 @@ export default {
       strigger = null;
       await this.$store.dispatch("updateForce");
       this.rotate();
-      this.tmp_force = 0;
+      this.force = 0;
     };
   },
 };

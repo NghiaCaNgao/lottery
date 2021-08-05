@@ -5,8 +5,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    force: 90,
-    turn: 10,
+    turns: 10,
     onlineUser: [
       {
         id: "123",
@@ -94,7 +93,7 @@ export default new Vuex.Store({
       state.force = value;
     },
     changeTurn(state, value) {
-      state.turn = value
+      state.turns = value
     }
   },
   actions: {

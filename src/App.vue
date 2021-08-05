@@ -1,7 +1,7 @@
 <template>
   <el-container class="app">
     <el-header>
-      <div class="navbar">
+      <div class="navbar flex-between">
         <div class="navbar__left">
           <div class="logo">
             <img src="./assets/logo.png" height="32px" />
