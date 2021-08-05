@@ -1,12 +1,15 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
+import store from './store'
 import VueApexCharts from 'vue-apexcharts'
 import ElementUI from 'element-ui';
 import locale from 'element-ui/lib/locale/lang/en'
 import Unicon from 'vue-unicons/dist/vue-unicons-vue2.umd'
+import Toast from "vue-toastification";
 import 'element-ui/lib/theme-chalk/index.css';
 import 'animate.css'
+import "vue-toastification/dist/index.css";
 
 import {
   uniFeedback,
@@ -14,7 +17,6 @@ import {
   uniShare
 } from 'vue-unicons/dist/icons'
 
-import store from './store'
 
 Unicon.add([
   uniShare,
@@ -22,6 +24,11 @@ Unicon.add([
   uniFeedback
 ])
 
+Vue.use(Toast, {
+  transition: "Vue-Toastification__bounce",
+  maxToasts: 3,
+  newestOnTop: true
+});
 Vue.use(Unicon)
 Vue.use(ElementUI, { locale });
 Vue.use(VueApexCharts)

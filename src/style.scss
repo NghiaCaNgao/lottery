@@ -31,6 +31,10 @@
     display: flex;
     flex-direction: column;
 }
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
 
 [role="btn"] {
     background: none;
@@ -97,8 +101,8 @@
 // Panel style
 .panel {
     margin: 20px;
-    width: 400px;
     padding: 10px;
+    width: 100%;
     background-color: var(--background-panel);
     border-radius: 7px;
     @include box-shadow;
@@ -167,6 +171,20 @@
         }
     }
     &__tool {
+        display: flex;
+        a {
+            margin: 5px;
+            text-decoration: none;
+            color: var(--text-green);
+            font-size: 1em;
+            font-weight: 700;
+            background-color: var(--background-green);
+            padding: 4px 10px 4px 4px;
+            border-radius: 20px;
+        }
+        .icon {
+            margin-right: 7px;
+        }
         button {
             margin: 10px;
             svg {
@@ -187,6 +205,7 @@
     .user,
     .history {
         max-height: 45%;
+        width: 400px;
     }
     // User
     .user {
@@ -211,7 +230,7 @@
         .panel__body {
             border-radius: 5px;
             background-color: var(--background-hover-row);
-            
+
             .text-wrap {
                 display: flex;
                 align-items: center;
@@ -344,5 +363,44 @@
     }
     .panel {
         width: 90%;
+    }
+}
+
+.signin {
+    .signin-area {
+        height: 100%;
+    }
+    button.signin-btn {
+        background-color: var(--background-blue);
+        color: var(--text-blue);
+        font-size: 1.1em;
+        font-weight: 700;
+        padding: 20px;
+        img {
+            margin-right: 7px;
+        }
+    }
+}
+
+.Vue-Toastification__icon {
+    margin: 0 10px 0 0 !important;
+}
+.Vue-Toastification__toast {
+    .no_context {
+        color: var(--text-disable);
+        font-size: 0.8em;
+        margin: 5px 0;
+    }
+}
+.Vue-Toastification__toast.Vue-Toastification__toast--default.top-center {
+    background-color: white;
+    svg {
+        color: var(--text-blue);
+    }
+    @include box-shadow;
+    .no_title {
+        color: var(--text-blue);
+        font-weight: 700;
+        font-size: 1em;
     }
 }
