@@ -100,7 +100,7 @@ export default {
       let ID = "";
       let pattern = "abcdefghijklmnopqestuvxyz0123456789";
       for (let i = 0; i < 6; i++)
-        ID = ID + pattern[Math.floor(Math.random() * 36)];
+        ID = ID + pattern[Math.floor(Math.random() * 34)];
       return ID;
     },
 

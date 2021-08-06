@@ -58,6 +58,10 @@
 .el-progress-bar__inner {
     transition: width 0.2 !important;
 }
+
+.el-form-item__label {
+    font-weight: 700;
+}
 .swal-modal {
     border-radius: 15px;
     button {
@@ -153,6 +157,7 @@
         display: flex;
         align-items: center;
         color: var(--color-primary);
+        font-size: 0.8em;
         .logo {
             margin-right: 15px;
         }
@@ -199,17 +204,18 @@
         }
     }
 }
+// ------------------------------------------------------
 
-// Detail section
+// Detail section in play page
 .detail-player {
     // User style
-    .user,
+    .online-user,
     .history {
         max-height: 45%;
         width: 400px;
     }
-    // User
-    .user {
+    // online User
+    .online-user {
         .panel__item {
             &-status {
                 span {
@@ -264,36 +270,37 @@
     .user__player-item__display {
         display: flex;
         align-items: center;
-        h1 {
-            font-size: 1em;
-            color: var(--text-disable);
+
+        .label {
+            padding: 3px 5px;
+            border-radius: 5px;
+
+            span {
+                font-size: 1em;
+                font-weight: 700;
+            }
+            &.label-red {
+                @include fill-color-icon(var(--background-red), var(--text-red));
+            }
+            &.label-blue {
+                @include fill-color-icon(var(--background-blue), var(--text-blue));
+            }
+            &.label-green {
+                @include fill-color-icon(var(--background-green), var(--text-green));
+            }
         }
         .icon {
             border-radius: 50%;
-            font-weight: 700;
             margin-right: 15px;
             overflow: hidden;
             &.icon-small {
                 height: 32px;
                 width: 32px;
-                svg {
-                    height: 16px;
-                }
             }
             &.icon-large {
                 height: 48px;
                 width: 48px;
             }
-            &.icon-red {
-                @include fill-color-icon(var(--background-red), var(--text-red));
-            }
-            &.icon-blue {
-                @include fill-color-icon(var(--background-blue), var(--text-blue));
-            }
-            &.icon-green {
-                @include fill-color-icon(var(--background-green), var(--text-green));
-            }
-
             .icon-image {
                 object-fit: scale-down;
                 img {
@@ -303,6 +310,68 @@
         }
     }
 }
+
+//--------------------end of Play page-----------------
+
+// user manager in user route
+.user-wrap {
+    width: 100%;
+    .panel.user,
+    .panel.signin {
+        width: fit-content;
+    }
+}
+.panel.user {
+    .panel__body {
+        display: flex;
+        padding: 20px;
+        .avatar {
+            margin: 30px;
+            height: 200px;
+            width: 200px;
+            border-radius: 50%;
+            overflow: hidden;
+            object-fit: scale-down;
+            box-shadow: 0 0 13px 9px rgb(214 6 214 / 28%);
+            img {
+                width: 100%;
+            }
+        }
+        .icon-selector {
+            border-radius: 5px;
+            padding: 5px;
+            width: fit-content;
+            min-width: 70px;
+            height: 70px;
+            margin: 10px;
+            color: var(--text-disable);
+            svg {
+                fill: var(--text-disable);
+            }
+        }
+        button {
+            float: right;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: 700;
+            margin: 10px;
+        }
+        #signout {
+            background-color: var(--background-red);
+            color: var(--text-red);
+        }
+        #update {
+            background-color: var(--background-green);
+            color: var(--text-green);
+        }
+    }
+    .form-input {
+        display: flex;
+        flex-wrap: wrap;
+    }
+}
+
+// End of user route
 
 .playground {
     width: 100%;
@@ -364,6 +433,15 @@
     }
     .panel {
         width: 90%;
+    }
+    .user {
+        .panel__body {
+            flex-direction: column !important;
+            .avatar {
+                height: 96px !important;
+                width: 96px !important;
+            }
+        }
     }
 }
 

@@ -12,7 +12,9 @@ import 'animate.css'
 import "vue-toastification/dist/index.css";
 
 import {
+  uniCircle,
   uniFeedback,
+  uniPlus,
   uniQrcodeScan,
   uniShare
 } from 'vue-unicons/dist/icons'
@@ -21,7 +23,9 @@ import {
 Unicon.add([
   uniShare,
   uniQrcodeScan,
-  uniFeedback
+  uniFeedback,
+  uniCircle,
+  uniPlus
 ])
 
 Vue.use(Toast, {
