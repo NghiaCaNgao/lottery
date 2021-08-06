@@ -242,6 +242,12 @@
                 display: flex;
                 align-items: center;
             }
+
+            .timestamp {
+                color: var(--text-disable);
+                font-size: 0.8em;
+            }
+            
             p.panel__item-status {
                 color: var(--text-disable);
                 font-size: 0.8em;
@@ -259,10 +265,6 @@
                         @include fill-color-icon(var(--background-green), var(--text-green));
                     }
                 }
-            }
-            span {
-                font-size: 0.9em;
-                color: var(--text-disable-lighter);
             }
         }
     }
@@ -287,6 +289,9 @@
             }
             &.label-green {
                 @include fill-color-icon(var(--background-green), var(--text-green));
+            }
+            &.label-small {
+                font-size: 0.8em;
             }
         }
         .icon {

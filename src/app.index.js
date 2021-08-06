@@ -100,17 +100,45 @@ export default {
             });
         },
 
+        updateHistory() {
+            var roomID = this.roomID;
+            var users = firebase.database().ref('room/' + roomID + '/history');
+            users.on('value', (snapshot) => {
+                const data = snapshot.val();
+                this.$store.commit("updateHistory", data)
+            });
+        },
+
         async uploadStateAddOnlineUser() {
             var roomID = this.roomID;
             var currentUser = this.currentUser;
             var database = firebase.database();
-            var baseRef = 'room/' + roomID + '/onlineUsers/';
-            var exist = await this.checkExist(currentUser.email, baseRef);
+
+            // OnlineUser
+            var baseRefOnlUsr = 'room/' + roomID + '/onlineUsers/';
+            var exist = await this.checkExist(currentUser.email, baseRefOnlUsr);
             if (exist === false) {
                 var newPostKey = firebase.database().ref(dataRef).push().key;
-                var dataRef = baseRef + newPostKey;
+                var dataRef = baseRefOnlUsr + newPostKey;
                 database.ref(dataRef).set(currentUser);
             }
+
+            // Hístory
+            var baseRefHis = 'room/' + roomID + '/history/';
+            var newPostKeyHis = firebase.database().ref(baseRefHis).push().key;
+            var dataRefHis = baseRefHis + newPostKeyHis;
+
+            var history = {
+                id: this.generateID(),
+                user: this.currentUser,
+                action: {
+                    value: null,
+                    action: "comein"
+                },
+                timestamp: Date.now()
+            }
+
+            database.ref(dataRefHis).set(history);
         },
 
         async uploadStateRemoveOnlineUser() {
@@ -163,6 +191,7 @@ export default {
                 this.showAlert("Welcome", "You are in the room");
                 this.uploadStateAddOnlineUser();
                 this.updateOnlineUser();
+                this.updateHistory();
                 // If not, alert notification and pass undefined to currentUser
             } else {
                 this.registerCurrentUser({});

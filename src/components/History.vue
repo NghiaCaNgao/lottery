@@ -14,22 +14,17 @@
       >
         <!-- User info -->
         <div class="text-wrap">
-          <user-icon
-            :item="item.user"
-            size="small"
-            :hasName="false"
-          ></user-icon>
+          <user-icon :item="item.user" size="small"></user-icon>
 
           <!-- status -->
           <p class="panel__item-status">
-            <span class="name">{{ item.user.name }}</span> has been in
-            <span class="action" v-if="item.action.value === ''">
-              {{ item.action.action }}</span
+            <span class="action" v-if="item.action.value">
+              {{ item.action.value }}</span
             >
-            <span v-else class="value"> {{ item.action.value }}</span>
+            <span v-else class="value"> {{ item.action.action }}</span>
           </p>
         </div>
-        <span>{{ formatTime(item.timestamp) }}</span>
+        <span class="timestamp">{{ formatTime(item.timestamp) }}</span>
       </div>
     </div>
   </div>
@@ -61,6 +56,10 @@ export default {
       let hour = t.getHours();
       return `${hour}:${min}`;
     },
+  },
+
+  created() {
+    console.log(this.history);
   },
 };
 </script>
