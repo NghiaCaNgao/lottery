@@ -23,3 +23,30 @@ export default {
   },
 };
 </script>
+
+<style lang = "scss">
+@import "../style/mixin.scss";
+
+.Vue-Toastification__icon {
+  margin: 0 10px 0 0 !important;
+}
+.Vue-Toastification__toast {
+  .no_context {
+    color: var(--text-disable);
+    font-size: 0.8em;
+    margin: 5px 0;
+  }
+}
+.Vue-Toastification__toast.Vue-Toastification__toast--default.top-center {
+  background-color: white;
+  svg {
+    color: var(--text-blue);
+  }
+  @include box-shadow;
+  .no_title {
+    color: var(--text-blue);
+    font-weight: 700;
+    font-size: 1em;
+  }
+}
+</style>

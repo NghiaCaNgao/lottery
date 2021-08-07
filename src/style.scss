@@ -5,18 +5,7 @@
     font-family: "Questrial", sans-serif;
 }
 
-@mixin fill-color-icon($bg, $txt) {
-    background-color: $bg;
-    color: $txt;
-    svg {
-        fill: $txt;
-    }
-}
-@mixin box-shadow {
-    border: 1px solid #ebeef5;
-    box-shadow: 0 0 15px 0 var(--box-shadow-gray);
-}
-
+// Common flex
 .flex-center {
     display: flex;
     justify-content: center;
@@ -36,6 +25,7 @@
     flex-direction: row;
 }
 
+// Button clear
 [role="btn"] {
     background: none;
     border: none;
@@ -45,38 +35,7 @@
     }
 }
 
-// end of reuse section
-
-.el-container {
-    padding: 0 200px !important;
-}
-
-.el-header {
-    padding: 20px !important;
-    height: unset !important;
-}
-.el-progress-bar__inner {
-    transition: width 0.2 !important;
-}
-
-.el-form-item__label {
-    font-weight: 700;
-}
-.swal-modal {
-    border-radius: 15px;
-    button {
-        background-color: var(--background-green);
-        color: var(--text-green);
-        outline: none !important;
-        &:hover {
-            background-color: var(--background-blue);
-            color: var(--text-blue);
-        }
-    }
-}
-
-// end of external restyle library
-
+// Scroll bar
 ::-webkit-scrollbar {
     background-color: transparent;
     width: 7px;
@@ -89,8 +48,7 @@
     border-radius: 7px;
 }
 
-// main layout
-
+// Layout
 .app {
     height: 100vh;
     width: 100vw;
@@ -146,295 +104,40 @@
     }
 }
 
-// Nav bar style
-.navbar {
-    padding: 10px;
-    background-color: var(--background-panel);
-    border-radius: 7px;
-    @include box-shadow;
-
-    &__left {
-        display: flex;
-        align-items: center;
-        color: var(--color-primary);
-        font-size: 0.8em;
-        .logo {
-            margin-right: 15px;
-        }
-    }
-    &__link {
-        a {
-            margin: 10px;
-            padding: 10px;
-            text-decoration: none;
-            color: var(--text-blue);
-            font-weight: 700;
-            font-size: 1rem;
-            border-radius: 5px;
-        }
-        .router-link-exact-active {
-            background-color: var(--background-blue);
-        }
-    }
-    &__tool {
-        display: flex;
-        a {
-            margin: 5px;
-            text-decoration: none;
-            color: var(--text-green);
-            font-size: 0.8em;
-            font-weight: 700;
-            background-color: var(--background-green);
-            padding: 4px 10px 4px 4px;
-            border-radius: 20px;
-        }
-        .icon {
-            margin-right: 7px;
-        }
-        button {
-            margin: 10px;
-            svg {
-                fill: var(--text-blue);
-            }
-            &:hover {
-                svg {
-                    transform: translatey(-5px);
-                }
-            }
-        }
-    }
-}
-// ------------------------------------------------------
-
-// Detail section in play page
-.detail-player {
-    // User style
-    .online-user,
-    .history {
-        max-height: 45%;
-        width: 400px;
-    }
-    // online User
-    .online-user {
-        .panel__item {
-            &-status {
-                span {
-                    padding: 3px 5px;
-                    color: var(--text-blue);
-                    background-color: var(--background-blue);
-                    border-radius: 10px;
-                }
-            }
-
-            &:hover {
-                background-color: var(--background-hover-row);
-            }
-        }
-    }
-
-    // History
-    .history {
-        .panel__body {
-            border-radius: 5px;
-            background-color: var(--background-hover-row);
-
-            .text-wrap {
-                display: flex;
-                align-items: center;
-            }
-
-            .timestamp {
-                color: var(--text-disable);
-                font-size: 0.8em;
-            }
-
-            p.panel__item-status {
-                color: var(--text-disable);
-                font-size: 0.8em;
-                span {
-                    font-weight: 700;
-                    border-radius: 10px;
-                    padding: 3px 5px;
-                    margin-left: 10px;
-                    &.value {
-                        @include fill-color-icon(var(--background-blue), var(--text-blue));
-                    }
-                    &.action {
-                        @include fill-color-icon(var(--background-violet), var(--text-violet));
-                    }
-                    &.comein {
-                        @include fill-color-icon(var(--background-green), var(--text-green));
-                    }
-                    &.comeout {
-                        @include fill-color-icon(var(--background-red), var(--text-red));
-                    }
-                }
-            }
-        }
-    }
-
-    .user__player-item__display {
-        display: flex;
-        align-items: center;
-
-        .label {
-            padding: 3px 5px;
-            border-radius: 5px;
-
-            span {
-                font-size: 1em;
-                font-weight: 700;
-            }
-            &.label-red {
-                @include fill-color-icon(var(--background-red), var(--text-red));
-            }
-            &.label-blue {
-                @include fill-color-icon(var(--background-blue), var(--text-blue));
-            }
-            &.label-green {
-                @include fill-color-icon(var(--background-green), var(--text-green));
-            }
-            &.label-small {
-                font-size: 0.8em;
-            }
-        }
-        .icon {
-            border-radius: 50%;
-            margin-right: 15px;
-            overflow: hidden;
-            &.icon-small {
-                height: 32px;
-                width: 32px;
-            }
-            &.icon-large {
-                height: 48px;
-                width: 48px;
-            }
-            .icon-image {
-                object-fit: scale-down;
-                img {
-                    width: 100%;
-                }
-            }
-        }
-    }
+// Element-ui
+.el-container {
+    padding: 0 200px !important;
 }
 
-//--------------------end of Play page-----------------
-
-// user manager in user route
-.user-wrap {
-    width: 100%;
-    .panel.user,
-    .panel.signin {
-        width: fit-content;
-    }
+.el-header {
+    padding: 20px !important;
+    height: unset !important;
 }
-.panel.user {
-    .panel__body {
-        display: flex;
-        padding: 20px;
-        .avatar {
-            margin: 30px;
-            height: 128px;
-            width: 128px;
-            border-radius: 50%;
-            overflow: hidden;
-            object-fit: scale-down;
-            img {
-                width: 100%;
-            }
-        }
-        .icon-selector {
-            border-radius: 5px;
-            padding: 5px;
-            width: fit-content;
-            min-width: 70px;
-            height: 70px;
-            margin: 10px;
-            color: var(--text-disable);
-            svg {
-                fill: var(--text-disable);
-            }
-        }
-        button {
-            float: right;
-            padding: 10px;
-            border-radius: 5px;
-            font-weight: 700;
-            margin: 10px;
-        }
-        #signout {
-            background-color: var(--background-red);
-            color: var(--text-red);
-        }
-        #update {
-            background-color: var(--background-green);
-            color: var(--text-green);
-        }
-    }
-    .form-input {
-        display: flex;
-        flex-wrap: wrap;
-    }
+.el-progress-bar__inner {
+    transition: width 0.2 !important;
 }
 
-// End of user route
-
-.playground {
-    width: 100%;
-    justify-content: center;
-    align-items: center;
+.el-form-item__label {
+    font-weight: 700;
 }
 
-#circle {
-    transition-timing-function: cubic-bezier(0.06, 0.03, 0.86, 0.59);
-}
-.pk {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    div {
-        height: 100px;
-        width: 100px;
-        border-radius: 50%;
-        background-color: var(--color-primary);
-        position: relative;
-        cursor: pointer;
-        &::before {
-            position: absolute;
-            top: -11px;
-            left: 25px;
-            content: "";
-            height: 50px;
-            width: 50px;
-            background-color: var(--color-primary);
-            transform: rotate(45deg);
-            border-radius: 5px;
-        }
-    }
-}
-.lottery {
-    flex-direction: column;
-}
-.force-wrap {
-    width: 100%;
-    margin: 50px;
-    background-color: var(--background-hover-row);
-    padding: 10px;
-    border-radius: 5px;
-    span {
-        margin-bottom: 10px;
-        display: block;
+// SweetAlert
+.swal-modal {
+    border-radius: 15px;
+    button {
         background-color: var(--background-green);
         color: var(--text-green);
-        width: fit-content;
-        padding: 3px 5px;
-        font-weight: 700;
+        outline: none !important;
+        &:hover {
+            background-color: var(--background-blue);
+            color: var(--text-blue);
+        }
+        &:focus {
+            outline: none;
+        }
     }
 }
+
 @media screen and (max-width: 1350px) {
     .app {
         height: unset;
@@ -448,49 +151,16 @@
     .user {
         .panel__body {
             flex-direction: column !important;
+            justify-content: center;
+            align-items: center;
+            display: flex;
             .avatar {
                 height: 96px !important;
                 width: 96px !important;
             }
         }
     }
-}
-
-.signin {
-    .signin-area {
-        height: 100%;
-    }
-    button.signin-btn {
-        background-color: var(--background-blue);
-        color: var(--text-blue);
-        font-size: 1.1em;
-        font-weight: 700;
-        padding: 20px;
-        img {
-            margin-right: 7px;
-        }
-    }
-}
-
-.Vue-Toastification__icon {
-    margin: 0 10px 0 0 !important;
-}
-.Vue-Toastification__toast {
-    .no_context {
-        color: var(--text-disable);
-        font-size: 0.8em;
-        margin: 5px 0;
-    }
-}
-.Vue-Toastification__toast.Vue-Toastification__toast--default.top-center {
-    background-color: white;
-    svg {
-        color: var(--text-blue);
-    }
-    @include box-shadow;
-    .no_title {
-        color: var(--text-blue);
-        font-weight: 700;
-        font-size: 1em;
+    .el-form-item__label {
+        text-align: left !important;
     }
 }

@@ -5,6 +5,7 @@
     </div>
     <!-- Main -->
     <div class="panel__body">
+      <!-- Avatar -->
       <div class="avatar">
         <img :src="form.image" alt="avatar" />
       </div>
@@ -20,10 +21,10 @@
             <el-form-item label="Username">
               <el-input v-model="form.name" disabled></el-input>
             </el-form-item>
-
             <el-form-item label="Email">
               <el-input v-model="form.email" disabled></el-input>
             </el-form-item>
+            <!-- -- -->
             <el-form-item label="Nickname">
               <el-input v-model="form.nickname"></el-input> </el-form-item
             ><el-form-item label="Color">
@@ -34,6 +35,7 @@
               </el-select>
             </el-form-item>
           </div>
+          <!-- --- -->
           <div>
             <el-form-item label="Display nickname">
               <el-switch v-model="form.hasNickname"></el-switch>
@@ -53,18 +55,17 @@
 <script>
 import swal from "sweetalert";
 import firebase from "firebase/app";
-import "firebase/storage";
-import "firebase/database";
+import api from "../api/api";
 
 export default {
   name: "form-user-data",
   data() {
     return {
       form: {
-        email: undefined,
-        name: undefined,
-        image: undefined,
-        nickname: undefined,
+        email: null,
+        name: null,
+        image: null,
+        nickname: null,
         color: "blue",
         hasUser: false,
         hasNickname: false,
@@ -73,94 +74,6 @@ export default {
     };
   },
 
-  methods: {
-    async updateCloudUser() {
-      var currentUser = this.$store.state.currentUser;
-      var user = {
-        nickname: currentUser.nickname,
-        color: currentUser.color,
-        hasNickname: currentUser.hasUser,
-        darkmode: currentUser.darkmode,
-      };
-
-      var db = firebase.firestore();
-      var data = db.collection("users");
-      // Find id
-      var docIDs = (
-        await data.where("email", "==", currentUser.email).get()
-      ).docs.map((doc) => doc.id);
-      // Update
-      data.doc(docIDs[0]).update(user);
-    },
-
-    updateAccount() {
-      try {
-        this.$store.commit("updateCurrentUser", this.form);
-        this.updateCloudUser();
-        swal({
-          title: "Account updated",
-          text: "You have changed your account info",
-          icon: "success",
-        });
-      } catch (error) {
-        swal("Account Alert", "Loi ghi du lieu");
-      }
-    },
-
-    async checkExist(email, roomID) {
-      var database = firebase.database();
-      var baseRef = "room/" + roomID + "/onlineUsers/";
-      var emailExist = false;
-      console.log(email, baseRef);
-
-      try {
-        var data = await database.ref(baseRef).get();
-        if (data.exists()) {
-          var listUsers = data.val();
-          for (let item in listUsers)
-            if (listUsers[item].email === email) emailExist = item;
-        }
-        return emailExist;
-      } catch (error) {
-        console.log(error);
-      }
-    },
-
-    async uploadStateRemoveOnlineUser() {
-      // Remove online user
-      var roomID = this.roomID;
-      var currentUser = this.currentUser;
-      var database = firebase.database();
-      var baseRef = "room/" + roomID + "/onlineUsers/";
-      var exist = await this.checkExist(currentUser.email, roomID);
-      if (exist) {
-        var dataRef = baseRef + exist;
-        database.ref(dataRef).remove();
-      }
-
-      // Add history
-      var baseRefHis = "room/" + roomID + "/history/";
-      var newPostKeyHis = firebase.database().ref(baseRefHis).push().key;
-      var dataRefHis = baseRefHis + newPostKeyHis;
-
-      var history = {
-        id: this.generateID(),
-        user: this.currentUser,
-        action: {
-          value: null,
-          action: "come out",
-        },
-        timestamp: Date.now(),
-      };
-
-      database.ref(dataRefHis).set(history);
-    },
-
-    async signoutAction() {
-      await this.uploadStateRemoveOnlineUser();
-      firebase.auth().signOut();
-    },
-  },
   computed: {
     currentUser: {
       get() {
@@ -171,6 +84,53 @@ export default {
       get() {
         return this.$store.state.roomID;
       },
+    },
+  },
+
+  methods: {
+    async uploadUser() {
+      var currentUser = this.$store.state.currentUser;
+      var user = {
+        nickname: currentUser.nickname,
+        color: currentUser.color,
+        hasNickname: currentUser.hasNickname,
+        darkmode: currentUser.darkmode,
+      };
+
+      var userID = await api.findUser(currentUser.email);
+      api.updateUser(userID, user);
+    },
+
+    updateAccount() {
+      try {
+        this.$store.commit("updateCurrentUser", this.form);
+        this.uploadUser();
+        swal({
+          title: "Account updated",
+          text: "You have changed your account info",
+          icon: "success",
+        });
+      } catch (error) {
+        swal("Account Alert", "Error on updating");
+      }
+    },
+
+    async removeOnlineUser() {
+      // Remove online user
+      var roomID = this.roomID;
+      var currentUser = this.currentUser;
+
+      // remove online user
+      var userID = await api.findOnlineUser(roomID, currentUser.email);
+      if (userID) api.removeOnlineUser(roomID, userID);
+
+      // add history
+      api.addHistory(roomID, currentUser, null, "come out");
+    },
+
+    async signoutAction() {
+      await this.removeOnlineUser();
+      firebase.auth().signOut();
     },
   },
 

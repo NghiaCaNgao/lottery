@@ -1,9 +1,7 @@
 <template>
   <div class="page">
     <!-- Playground -->
-    <div class="panel flex-col animate__animated animate__bounceIn playground">
-      <chart></chart>
-    </div>
+    <playground></playground>
 
     <!-- Detail game -->
     <div class="detail-player flex-col flex-center">
@@ -14,15 +12,19 @@
 </template>
 
 <script>
-import Chart from "../components/Chart.vue";
+import Playground from "../components/Playground.vue";
 import OnlineUser from "../components/OnlineUser.vue";
 import History from "../components/History.vue";
 export default {
   components: {
-    Chart,
+    Playground,
     OnlineUser,
     History,
   },
   name: "play",
 };
 </script>
+
+<style lang="scss">
+@import "./play.scss";
+</style>

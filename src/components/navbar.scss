@@ -1,0 +1,59 @@
+// Nav bar style
+@import "../style/mixin.scss";
+.navbar {
+    padding: 10px;
+    background-color: var(--background-panel);
+    border-radius: 7px;
+    @include box-shadow;
+
+    &__left {
+        display: flex;
+        align-items: center;
+        color: var(--color-primary);
+        font-size: 0.8em;
+        .logo {
+            margin-right: 15px;
+        }
+    }
+    &__link {
+        a {
+            margin: 10px;
+            padding: 10px;
+            text-decoration: none;
+            color: var(--text-blue);
+            font-weight: 700;
+            font-size: 1rem;
+            border-radius: 5px;
+        }
+        .router-link-exact-active {
+            background-color: var(--background-blue);
+        }
+    }
+    &__tool {
+        display: flex;
+        a {
+            padding: 4px 10px 4px 4px;
+            margin: 5px;
+            text-decoration: none;
+            color: var(--text-green);
+            font-size: 0.8em;
+            font-weight: 700;
+            background-color: var(--background-green);
+            border-radius: 20px;
+        }
+        .icon {
+            margin-right: 7px;
+        }
+        button {
+            margin: 10px;
+            svg {
+                fill: var(--text-blue);
+            }
+            &:hover {
+                svg {
+                    transform: translatey(-5px);
+                }
+            }
+        }
+    }
+}

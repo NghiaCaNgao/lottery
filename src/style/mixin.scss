@@ -1,0 +1,12 @@
+@mixin fill-color-icon($bg, $txt) {
+    background-color: $bg;
+    color: $txt;
+    svg {
+        fill: $txt;
+    }
+}
+@mixin box-shadow {
+    border: 1px solid #ebeef5;
+    box-shadow: 0 0 15px 0 var(--box-shadow-gray);
+}
+

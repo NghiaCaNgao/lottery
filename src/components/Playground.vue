@@ -1,11 +1,23 @@
 <template>
-  <div class="lottery flex-center">
+  <div class="panel playground flex-col flex-center animate__animated animate__bounceIn">
+    
     <!-- Rotation circle -->
     <div height="380px" width="380px">
       <apexchart
         width="380"
         type="donut"
-        :options="options"
+        :options="{
+          legend: {
+            show: false,
+          },
+          dataLabels: {
+            enabled: true,
+            formatter: function (val, opts) {
+              return opts.w.config.labels[opts.seriesIndex];
+            },
+          },
+          labels: labels,
+        }"
         :series="series"
         id="circle"
       ></apexchart>
@@ -27,6 +39,7 @@
 import swal from "sweetalert";
 import "firebase/database";
 import firebase from "firebase/app";
+
 // Interval effect on force line
 var strigger = null;
 
@@ -47,21 +60,6 @@ export default {
         { color: "#6f7ad3", percentage: 100 },
       ],
 
-      // Option for rotation circle
-      options: {
-        legend: {
-          show: false,
-        },
-        labels: ["Apples", "Oranges", "Berries", "Grapes", "Mama"],
-        dataLabels: {
-          enabled: true,
-          formatter: function (val, opts) {
-            return opts.w.config.labels[opts.seriesIndex];
-          },
-        },
-      },
-      series: [1, 1, 1, 1, 1],
-
       // Constant effect rotation
       const_time_unit: 0.1,
       const_deg_unit: 0.07 * 360,
@@ -70,6 +68,16 @@ export default {
   },
 
   computed: {
+    labels: {
+      get() {
+        return this.$store.state.labels;
+      },
+    },
+    series: {
+      get() {
+        return this.$store.state.series;
+      },
+    },
     turns: {
       get() {
         return this.$store.state.turns;
@@ -152,8 +160,10 @@ export default {
       // Calc time and number of rotations
       let time = this.const_time_unit * this.force;
       let plus = this.const_deg_unit * this.force;
+      let num = this.series.length;
       this.deg += plus;
-      let value = 4 - (Math.floor(this.deg / (360 / 5)) % 5);
+      let value =
+        num - 1 - (Math.floor(this.deg / (360 / (num - 1))) % (num - 1));
 
       console.log(this.force, time, this.deg);
 
@@ -163,11 +173,11 @@ export default {
 
       circle.addEventListener("transitionend", () => {
         // Create History
-        let value_name = this.options.labels[value];
+        let value_name = this.labels[value];
         this.createHistoryEvent(value_name);
         // Alert
         swal({
-          title: "You have been in " + value_name,
+          title: value_name,
           icon: "info",
         });
       });
@@ -191,10 +201,10 @@ export default {
         }, 30);
       }
     };
+
     btn.onmouseup = async () => {
       clearInterval(strigger);
       strigger = null;
-      await this.$store.dispatch("updateForce");
       this.rotate();
       this.force = 0;
     };

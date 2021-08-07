@@ -11,6 +11,9 @@ export default new Vuex.Store({
     history: {},
     lastUserPlay: {},
 
+    series: [],
+    labels: [],
+
     currentUser: {
       id: null,
       email: null,
@@ -41,8 +44,8 @@ export default new Vuex.Store({
     },
 
     updateCurrentUser(state, user) {
-      state.currentUser.nickname = user.nickname || state.nickname;
-      state.currentUser.color = user.color || state.color;
+      state.currentUser.nickname = (user.nickname) ? user.nickname : null;
+      state.currentUser.color = user.color;
       state.currentUser.hasNickname = user.hasNickname;
       state.currentUser.darkmode = user.darkmode;
       state.currentUser.hasUser = (user.email) ? true : false;
@@ -54,6 +57,13 @@ export default new Vuex.Store({
 
     updateHistory(state, history) {
       state.history = history;
+    },
+
+    updateOptionsChart(state, labels) {
+      state.labels = labels;
+      var p = [];
+      for (let i = 0; i < labels.length; i++) p.push(1);
+      state.series = p;
     }
   },
 })

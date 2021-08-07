@@ -1,33 +1,11 @@
 <template>
   <el-container class="app">
+    <!-- Navbar -->
     <el-header>
-      <div class="navbar flex-between">
-        <div class="navbar__left">
-          <div class="logo">
-            <img src="./assets/logo.png" height="32px" />
-          </div>
-          <h1>Happy Loterry</h1>
-        </div>
-        <div class="navbar__link">
-          <router-link to="/">Play</router-link>
-          <router-link to="/create">Create</router-link>
-        </div>
-        <div class="navbar__tool">
-          <router-link to="/user" class="userdata flex-center">
-            <div class="icon">
-              <el-avatar size="small" :src="currentUser.image"></el-avatar>
-            </div>
-            <div class="username">{{ currentUser.name }}</div></router-link
-          >
-          <button role="btn">
-            <unicon name="qrcode-scan"></unicon>
-          </button>
-          <button role="btn">
-            <unicon name="share"></unicon>
-          </button>
-        </div>
-      </div>
+      <navbar></navbar>
     </el-header>
+
+    <!-- Display page -->
     <el-main>
       <transition
         appear
@@ -45,6 +23,7 @@
 <script src = "./app.index.js"></script>
 
 <style lang="scss">
+@import "./style/theme.css";
+@import "./style/mixin.scss";
 @import "./style.scss";
-@import "./theme.css";
 </style>
