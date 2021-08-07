@@ -1,17 +1,15 @@
 <template>
   <div class="page">
-    
     <!-- Playground -->
     <div class="panel flex-col animate__animated animate__bounceIn playground">
       <chart></chart>
     </div>
 
     <!-- Detail game -->
-    <div class="detail-player">
+    <div class="detail-player flex-col flex-center">
       <online-user></online-user>
       <history></history>
     </div>
-
   </div>
 </template>
 

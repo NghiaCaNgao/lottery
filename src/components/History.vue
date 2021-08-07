@@ -6,7 +6,7 @@
       <span>{{ turns }} turns</span>
     </div>
 
-    <div class="panel__body flex-col">
+    <div class="panel__body flex-col" v-if="history">
       <div
         class="panel__item flex-between"
         v-for="item in history"
@@ -18,10 +18,19 @@
 
           <!-- status -->
           <p class="panel__item-status">
-            <span class="action" v-if="item.action.value">
+            <span class="value" v-if="item.action.value">
               {{ item.action.value }}</span
             >
-            <span v-else class="value"> {{ item.action.action }}</span>
+            <span
+              v-else
+              class="action"
+              :class="{
+                comein: item.action.action === 'come in',
+                comeout: item.action.action === 'come out',
+              }"
+            >
+              {{ item.action.action }}</span
+            >
           </p>
         </div>
         <span class="timestamp">{{ formatTime(item.timestamp) }}</span>
@@ -56,10 +65,6 @@ export default {
       let hour = t.getHours();
       return `${hour}:${min}`;
     },
-  },
-
-  created() {
-    console.log(this.history);
   },
 };
 </script>

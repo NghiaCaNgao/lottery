@@ -114,7 +114,7 @@ export default {
             var currentUser = this.currentUser;
             var database = firebase.database();
 
-            // OnlineUser
+            // Add OnlineUser
             var baseRefOnlUsr = 'room/' + roomID + '/onlineUsers/';
             var exist = await this.checkExist(currentUser.email, baseRefOnlUsr);
             if (exist === false) {
@@ -133,7 +133,7 @@ export default {
                 user: this.currentUser,
                 action: {
                     value: null,
-                    action: "comein"
+                    action: "come in"
                 },
                 timestamp: Date.now()
             }
@@ -142,6 +142,8 @@ export default {
         },
 
         async uploadStateRemoveOnlineUser() {
+
+            // remove online user
             var roomID = this.roomID;
             var email = this.currentUser.email;
             var database = firebase.database();
@@ -149,9 +151,24 @@ export default {
             var exist = await this.checkExist(email, baseRef);
             if (exist) {
                 var dataRef = baseRef + exist;
-                console.log(dataRef);
                 database.ref(dataRef).onDisconnect().remove();
             }
+
+            var baseRefHis = 'room/' + roomID + '/history/';
+            var newPostKeyHis = firebase.database().ref(baseRefHis).push().key;
+            var dataRefHis = baseRefHis + newPostKeyHis;
+
+            var history = {
+                id: this.generateID(),
+                user: this.currentUser,
+                action: {
+                    value: null,
+                    action: "come out"
+                },
+                timestamp: Date.now()
+            }
+
+            database.ref(dataRefHis).set(history);
         },
 
     },

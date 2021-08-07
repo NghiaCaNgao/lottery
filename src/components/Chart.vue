@@ -1,7 +1,7 @@
 <template>
   <div class="lottery flex-center">
     <!-- Rotation circle -->
-    <div>
+    <div height="380px" width="380px">
       <apexchart
         width="380"
         type="donut"
@@ -25,7 +25,8 @@
 
 <script>
 import swal from "sweetalert";
-
+import "firebase/database";
+import firebase from "firebase/app";
 // Interval effect on force line
 var strigger = null;
 
@@ -77,12 +78,9 @@ export default {
         this.$store.commit("changeTurn", value);
       },
     },
-    lastUserPlay: {
+    currentUser: {
       get() {
-        return this.$store.state.lastUserPlay;
-      },
-      set() {
-        this.$store.commit("changeLastUserPlay");
+        return this.$store.state.currentUser;
       },
     },
     history: {
@@ -91,6 +89,11 @@ export default {
       },
       set() {
         this.$store.commit("changeHistory");
+      },
+    },
+    roomID: {
+      get() {
+        return this.$store.state.roomID;
       },
     },
   },
@@ -105,16 +108,24 @@ export default {
     },
 
     createHistoryEvent(value) {
-      let item = {
+      var roomID = this.roomID;
+      var database = firebase.database();
+
+      var baseRefHis = "room/" + roomID + "/history/";
+      var newPostKeyHis = firebase.database().ref(baseRefHis).push().key;
+      var dataRefHis = baseRefHis + newPostKeyHis;
+
+      let history = {
         id: this.generateID(),
-        user: this.lastUserPlay,
+        user: this.currentUser,
         action: {
           value: value,
-          action: "",
+          action: null,
         },
         timestamp: Date.now(),
       };
-      this.history.push(item);
+
+      database.ref(dataRefHis).set(history);
     },
 
     rotate() {

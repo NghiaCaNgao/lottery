@@ -112,7 +112,7 @@ export default {
       var baseRef = "room/" + roomID + "/onlineUsers/";
       var emailExist = false;
       console.log(email, baseRef);
-      
+
       try {
         var data = await database.ref(baseRef).get();
         if (data.exists()) {
@@ -127,6 +127,7 @@ export default {
     },
 
     async uploadStateRemoveOnlineUser() {
+      // Remove online user
       var roomID = this.roomID;
       var currentUser = this.currentUser;
       var database = firebase.database();
@@ -136,6 +137,23 @@ export default {
         var dataRef = baseRef + exist;
         database.ref(dataRef).remove();
       }
+
+      // Add history
+      var baseRefHis = "room/" + roomID + "/history/";
+      var newPostKeyHis = firebase.database().ref(baseRefHis).push().key;
+      var dataRefHis = baseRefHis + newPostKeyHis;
+
+      var history = {
+        id: this.generateID(),
+        user: this.currentUser,
+        action: {
+          value: null,
+          action: "come out",
+        },
+        timestamp: Date.now(),
+      };
+
+      database.ref(dataRefHis).set(history);
     },
 
     async signoutAction() {

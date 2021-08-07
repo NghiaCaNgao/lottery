@@ -247,7 +247,7 @@
                 color: var(--text-disable);
                 font-size: 0.8em;
             }
-            
+
             p.panel__item-status {
                 color: var(--text-disable);
                 font-size: 0.8em;
@@ -255,14 +255,18 @@
                     font-weight: 700;
                     border-radius: 10px;
                     padding: 3px 5px;
-                    &.name {
+                    margin-left: 10px;
+                    &.value {
                         @include fill-color-icon(var(--background-blue), var(--text-blue));
                     }
-                    &.value {
-                        @include fill-color-icon(var(--background-red), var(--text-red));
-                    }
                     &.action {
+                        @include fill-color-icon(var(--background-violet), var(--text-violet));
+                    }
+                    &.comein {
                         @include fill-color-icon(var(--background-green), var(--text-green));
+                    }
+                    &.comeout {
+                        @include fill-color-icon(var(--background-red), var(--text-red));
                     }
                 }
             }
@@ -332,12 +336,11 @@
         padding: 20px;
         .avatar {
             margin: 30px;
-            height: 200px;
-            width: 200px;
+            height: 128px;
+            width: 128px;
             border-radius: 50%;
             overflow: hidden;
             object-fit: scale-down;
-            box-shadow: 0 0 13px 9px rgb(214 6 214 / 28%);
             img {
                 width: 100%;
             }
@@ -433,6 +436,9 @@
     }
 }
 @media screen and (max-width: 1350px) {
+    .app {
+        height: unset;
+    }
     .page {
         flex-direction: column;
     }
