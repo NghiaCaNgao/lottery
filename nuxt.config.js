@@ -1,7 +1,6 @@
 export default {
-  // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'lottery',
+    title: 'Lottery',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -41,5 +40,9 @@ export default {
   },
 
   build: {
+  },
+
+  router: {
+    middleware: 'stats'
   }
 }

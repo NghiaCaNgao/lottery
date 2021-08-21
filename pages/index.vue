@@ -3,14 +3,17 @@
     <div class="w-full p-2 flex flex-row justify-evenly items-center shadow-md">
       <div class="flex items-center">
         <img src="../static/images/logo.png" />
-        <h1 class="mx-3 font-bold font-mono text-lg text-pink-500">Happy Lottery</h1>
+        <h1 class="mx-3 font-bold font-mono text-lg text-pink-500">
+          Happy Lottery
+        </h1>
       </div>
       <div>
-        <a href="/" class="text-pink-500 font-bold mx-3">Play</a>
+        <a href="/play" class="text-pink-500 font-bold mx-3">Play</a>
         <a href="/" class="text-pink-500 font-bold mx-3">Create</a>
       </div>
       <div>
-        <button
+        <a
+          href="/user/login"
           class="
             text-blue-600
             font-bold
@@ -21,10 +24,8 @@
           "
         >
           Sign up
-        </button>
-        <button class="bg-indigo-200 text-blue-600 font-bold mx-3 p-2">
-          Play Now
-        </button>
+        </a>
+        <a class="bg-indigo-200 text-blue-600 font-bold mx-3 p-2"> Play Now </a>
       </div>
     </div>
     <div class="w-full h-full flex flex-col lg:flex-row">
@@ -73,9 +74,6 @@ export default {
 </script>
 
 <style lang="scss">
-.homepage {
-  // box-shadow: 0 0 12px 0px #0000002e;
-}
 input {
   border-radius: 20px;
   margin: 20px 0;
