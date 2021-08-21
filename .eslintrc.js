@@ -15,5 +15,12 @@ module.exports = {
   plugins: [
   ],
   // add your custom rules here
-  rules: {}
+  rules: {
+    "semi": "off",
+    "vue/html-self-closing": "off",
+    "vue/singleline-html-element-content-newline": "off",
+    "comma-dangle": "off",
+    "quotes": "off",
+    "space-before-function-paren": "off"
+  }
 }
