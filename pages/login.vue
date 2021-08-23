@@ -173,6 +173,7 @@ export default {
         .then(() => {
           // on success
           e.target.disabled = false;
+          this.register = false;
           api.Extension.showNotification(
             null,
             "Create success",
@@ -182,7 +183,6 @@ export default {
         .catch(error => {
           // on error
           e.target.disabled = false;
-          this.register = false;
           api.Extension.showNotification(
             "warning",
             "Error: " + error.code,

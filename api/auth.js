@@ -37,20 +37,19 @@ class Auth {
         await firebase
           .auth()
           .signInWithPopup(provider)
-          .then(result => {
-            User.registerUser(result.user);
+          .then(async result => {
+            await User.registerUser(result.user);
           });
         break;
       }
       // Sign in with Facebook Account
       case "facebook": {
         const provider = new firebase.auth.FacebookAuthProvider();
-
         await firebase
           .auth()
           .signInWithPopup(provider)
-          .then(result => {
-            User.registerUser(result.user);
+          .then(async result => {
+            await User.registerUser(result.user);
           });
         break;
       }

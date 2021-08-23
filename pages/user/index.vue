@@ -6,9 +6,10 @@
         Profile
       </h1>
       <div
-        class="flex w-full items-center md:justify-center flex-col md:flex-row"
+        class="flex w-full items-center md:items-start md:justify-center flex-col md:flex-row"
       >
         <div class="w-3/4 md:w-1/3 m-4">
+          <!-- Form input -->
           <form>
             <div class="m-4">
               <h1
@@ -29,6 +30,7 @@
                 <span class="font-semibold">{{ form.provider }}</span>
               </h1>
             </div>
+
             <div class="m-4">
               <span class="font-bold text-gray-600">Username</span>
               <input
@@ -38,41 +40,63 @@
               />
               <p class="text-sm text-gray-400">This is display name</p>
             </div>
+
             <div class="m-4">
               <span class="font-bold text-gray-600">Nickname</span>
               <input
+                v-model="form.nickname"
                 class="block p-1 w-full focus:outline-none focus:ring-2 rounded-sm bg-gray-100"
                 type="text"
               />
               <p class="text-sm text-gray-400">This is alternative name</p>
             </div>
+
             <div class="m-4">
               <span class="font-bold text-gray-600">Email</span>
               <input
                 v-model="form.email"
                 class="block p-1 w-full focus:outline-none focus:ring-2 rounded-sm bg-gray-100"
                 type="text"
+                disabled
               />
               <p class="text-sm text-gray-400">Your email address</p>
             </div>
+
+            <div class="m-4">
+              <SellectColor />
+            </div>
+
             <div v-if="form.provider === 'password'" class="m-4">
               <span class="font-bold text-gray-600">Password</span>
-              <input
-                class="block p-1 w-full focus:outline-none focus:ring-2 rounded-sm bg-gray-100"
-                type="password"
-              />
-              <p class="text-sm text-gray-400">Your password</p>
+              <button class="block m-3 p-1 bg-indigo-100 font-semibold">
+                Change password
+              </button>
+              <p class="text-sm text-gray-400">Change your password</p>
+            </div>
+
+            <div class="m-4 border-2 border-red-200 p-3">
+              <span class="font-bold text-gray-600">Delete account</span>
+              <button
+                class="block m-3 p-1 px-3 bg-red-100 font-semibold text-red-600"
+              >
+                Delete
+              </button>
+              <p class="text-sm text-gray-400">
+                This action will delete your account forever
+              </p>
             </div>
           </form>
+
+          <!-- Footer button -->
           <div class="flex justify-end">
             <button
-              class="p-1 px-2 m-3 bg-indigo-700 font-bold text-white rounded-md"
+              class="p-1 px-2 m-3 bg-indigo-100 text-indigo-600 font-semibold rounded-md"
               @click="update"
             >
               Update
             </button>
             <button
-              class="p-1 px-2 m-3 bg-red-400 font-bold text-white rounded-md"
+              class="p-1 px-2 m-3 bg-red-100 text-red-600 font-semibold rounded-md"
               @click="signOut"
             >
               Sign out
@@ -95,6 +119,7 @@
   </div>
 </template>
 <script>
+import swal from "sweetalert";
 import Navbar from "../../components/Navbar.vue";
 import * as api from "../../api";
 export default {
@@ -104,14 +129,7 @@ export default {
   },
   data() {
     return {
-      form: {
-        name: null,
-        email: null,
-        uid: null,
-        emailVerified: null,
-        provider: null,
-        avatar: null
-      }
+      form: {}
     };
   },
   computed: {
@@ -121,8 +139,9 @@ export default {
       }
     }
   },
-  mounted() {
-    this.form = this.currentUser;
+
+  async mounted() {
+    this.form = await api.User.loadCurrentUserData(this.currentUser.uid);
   },
 
   methods: {
@@ -131,8 +150,18 @@ export default {
         window.open("/login", "_self");
       });
     },
-    update() {
-      api.User.updateUser(this.currentUser.uid, this.form);
+    update(e) {
+      e.target.disabled = true;
+      api.User.updateUser(this.currentUser.uid, this.form)
+        .then(() => {
+          e.target.disabled = false;
+          swal("Good job!", "Updated!", "success");
+        })
+        .catch(error => {
+          e.target.disabled = false;
+          console.error(error);
+          swal("Oop!", "Update failed!", "warning");
+        });
     }
   }
 };

@@ -54,7 +54,6 @@ class User {
   static async findDocUserID(uid) {
     const db = firebase.firestore();
     const data = db.collection("users");
-
     const userIDs = (await data.where("uid", "==", uid).get()).docs.map(doc => {
       return doc.id;
     });
@@ -74,16 +73,17 @@ class User {
       else return query.docs[0].data();
     } catch (error) {
       console.error(error);
-      Extension.showNotification("warning", Error, "Can not load user data");
+      Extension.showNotification("warning", error, "Can not load user data");
     }
   }
 
   // Update user firebaseStore
-  static updateUser(uid, userData) {
+  static async updateUser(uid, userData) {
     const db = firebase.firestore();
     const data = db.collection("users");
-    const docID = this.findDocUserID(uid);
-    data.doc(docID).update(userData);
+    const docID = await this.findDocUserID(uid);
+    console.log(docID, userData);
+    await data.doc(docID).update(userData);
   }
 }
 export default User;
