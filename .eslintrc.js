@@ -23,6 +23,7 @@ module.exports = {
     curly: "off",
     "vue/prop-name-casing": "off",
     "arrow-parens": "off",
-    "vue/max-attributes-per-line": "off"
+    "vue/max-attributes-per-line": "off",
+    camelcase: "off"
   }
 };

@@ -67,6 +67,7 @@
           <div class="flex justify-end">
             <button
               class="p-1 px-2 m-3 bg-indigo-700 font-bold text-white rounded-md"
+              @click="update"
             >
               Update
             </button>
@@ -129,6 +130,9 @@ export default {
       api.Auth.signOut().then(() => {
         window.open("/login", "_self");
       });
+    },
+    update() {
+      api.User.updateUser(this.currentUser.uid, this.form);
     }
   }
 };

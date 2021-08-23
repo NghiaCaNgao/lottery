@@ -97,32 +97,98 @@ export default {
         email: null,
         password: null
       },
-      redirect: null
+      redirect: null,
     };
   },
   mounted() {
     this.redirect = this.$route.query.redirect || "/";
   },
   methods: {
-    loginByEmail() {
-      api.Auth.signIn("email", this.form).then(() => {
-        window.open(this.redirect, "_self");
-      });
+    loginByEmail(e) {
+      // Disbale button
+      e.target.disabled = true;
+
+      api.Auth.signIn("email", this.form)
+        .then(() => {
+          // on success
+          e.target.disabled = false;
+          window.open(this.redirect, "_self");
+        })
+        .catch(error => {
+          // on error
+          e.target.disabled = false;
+          api.Extension.showNotification(
+            "warning",
+            "Error: " + error.code,
+            error.message
+          );
+        });
     },
-    loginByGoogle() {
-      api.Auth.signIn("google").then(() => {
-        window.open(this.redirect, "_self");
-      });
+    loginByGoogle(e) {
+      // Disbale button
+      e.target.disabled = true;
+
+      api.Auth.signIn("google")
+        .then(() => {
+          // on success
+          e.target.disabled = false;
+          window.open(this.redirect, "_self");
+        })
+        .catch(error => {
+          // on error
+          e.target.disabled = false;
+          api.Extension.showNotification(
+            "warning",
+            "Error: " + error.code,
+            error.message
+          );
+        });
     },
-    loginByFacebook() {
-      api.Auth.signIn("facebook").then(() => {
-        window.open(this.redirect, "_self");
-      });
+    loginByFacebook(e) {
+      // Disbale button
+      e.target.disabled = true;
+
+      api.Auth.signIn("facebook")
+        .then(() => {
+          // on success
+          e.target.disabled = false;
+          window.open(this.redirect, "_self");
+        })
+        .catch(error => {
+          // on error
+          e.target.disabled = false;
+          api.Extension.showNotification(
+            "warning",
+            "Error: " + error.code,
+            error.message
+          );
+        });
     },
-    signUpByEmail() {
-      api.Auth.signUp(this.form).then(() => {
-        this.register = true;
-      });
+    signUpByEmail(e) {
+      // Disbale button
+      e.target.disabled = true;
+
+      // Sign up action
+      api.Auth.signUp(this.form)
+        .then(() => {
+          // on success
+          e.target.disabled = false;
+          api.Extension.showNotification(
+            null,
+            "Create success",
+            "Now you can login to your account and start your world"
+          );
+        })
+        .catch(error => {
+          // on error
+          e.target.disabled = false;
+          this.register = false;
+          api.Extension.showNotification(
+            "warning",
+            "Error: " + error.code,
+            error.message
+          );
+        });
     }
   }
 };

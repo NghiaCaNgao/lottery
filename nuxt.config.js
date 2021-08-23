@@ -1,41 +1,36 @@
 export default {
   head: {
-    title: 'Lottery',
+    title: "Lottery",
     meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
-      { name: 'format-detection', content: 'telephone=no' }
+      { charset: "utf-8" },
+      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { hid: "description", name: "description", content: "" },
+      { name: "format-detection", content: "telephone=no" }
     ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
-    ]
+    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }]
   },
 
-  css: [
-  ],
+  css: [],
 
-  plugins: [
-    '~/plugins/element',
-    { src: '~/plugins/unicons', mode: 'client' }
-  ],
+  plugins: ["~/plugins/element", { src: "~/plugins/unicons", mode: "client" }],
 
   components: true,
 
-  buildModules: [
-    '@nuxtjs/eslint-module',
-    '@nuxtjs/tailwindcss'
-  ],
+  buildModules: ["@nuxtjs/eslint-module", "@nuxtjs/tailwindcss"],
 
   modules: [
-    '@nuxtjs/axios',
-    '@nuxtjs/pwa',
-    '@nuxtjs/firebase',
+    "@nuxtjs/axios",
+    "@nuxtjs/pwa",
+    "@nuxtjs/firebase",
+    "vue-toastification/nuxt"
   ],
+
+  // Toast NOtifications config
+  toast: {},
 
   // Router
   router: {
-    middleware: 'auth'
+    middleware: "auth"
   },
 
   // Axios config
@@ -48,15 +43,12 @@ export default {
     icon: false,
 
     workbox: {
-      importScripts: [
-
-        '/firebase-auth-sw.js'
-      ],
-      dev: process.env.NODE_ENV === 'development',
+      importScripts: ["/firebase-auth-sw.js"],
+      dev: process.env.NODE_ENV === "development"
     },
 
     manifest: {
-      lang: 'en'
+      lang: "en"
     }
   },
 
@@ -65,7 +57,8 @@ export default {
     config: {
       apiKey: "AIzaSyD_dtwhN0mXpznaMrLVPVIsCdirK5ViZ8U",
       authDomain: "lottery-ncn.firebaseapp.com",
-      databaseURL: "https://lottery-ncn-default-rtdb.asia-southeast1.firebasedatabase.app",
+      databaseURL:
+        "https://lottery-ncn-default-rtdb.asia-southeast1.firebasedatabase.app",
       projectId: "lottery-ncn",
       storageBucket: "lottery-ncn.appspot.com",
       messagingSenderId: "667286825039",
@@ -75,13 +68,13 @@ export default {
     services: {
       auth: {
         initialize: {
-          onAuthStateChangedAction: 'onAuthStateChanged',
+          onAuthStateChangedAction: "onAuthStateChanged"
         },
-        ssr: true,
+        ssr: true
       },
       firestore: {
         memoryOnly: false,
-        enablePersistence: true,
+        enablePersistence: true
       },
       storage: true,
       database: true,
@@ -91,20 +84,19 @@ export default {
         createServiceWorker: true,
         actions: [
           {
-            action: 'goToLupasGithub',
-            url: 'https://github.com/lupas',
+            action: "goToLupasGithub",
+            url: "https://github.com/lupas"
           },
           {
-            action: 'goToModuleGithub',
-            url: 'https://github.com/nuxt-community/firebase-module',
-          },
+            action: "goToModuleGithub",
+            url: "https://github.com/nuxt-community/firebase-module"
+          }
         ],
         fcmPublicVapidKey:
-          'BKEjWgybC6Y8QMhs3LQGkkpbO3W1lpnAkGY-UnAA_DB5Xxu0mJMjQvjzwVI2uukp8-I3cL0857pttjedkFXjjCI',
-      },
+          "BKEjWgybC6Y8QMhs3LQGkkpbO3W1lpnAkGY-UnAA_DB5Xxu0mJMjQvjzwVI2uukp8-I3cL0857pttjedkFXjjCI"
+      }
     }
   },
 
-  build: {
-  },
-}
+  build: {}
+};
