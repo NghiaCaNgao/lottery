@@ -6,7 +6,7 @@
           <a
             v-for="item in data_menu_context"
             :key="item.id"
-            class="block my-2 p-2 font-semibold text-md hover:bg-indigo-100 hover:text-indigo-600"
+            class="block p-2 font-semibold text-md hover:bg-indigo-100 hover:text-indigo-600"
             :href="item.href"
           >
             <li>{{ item.text }}</li>
