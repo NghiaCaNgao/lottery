@@ -116,7 +116,7 @@ export default {
     },
     loginByFacebook() {
       api.Auth.signIn("facebook").then(() => {
-        // window.open(this.redirect, "_self");
+        window.open(this.redirect, "_self");
       });
     },
     signUpByEmail() {

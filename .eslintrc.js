@@ -22,6 +22,7 @@ module.exports = {
     indent: "off",
     curly: "off",
     "vue/prop-name-casing": "off",
-    "arrow-parens": "off"
+    "arrow-parens": "off",
+    "vue/max-attributes-per-line": "off"
   }
 };

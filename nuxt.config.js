@@ -16,6 +16,7 @@ export default {
   ],
 
   plugins: [
+    '~/plugins/element',
     { src: '~/plugins/unicons', mode: 'client' }
   ],
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="homepage flex flex-col w-screen h-screen overflow-hidden">
+  <div class="homepage flex flex-col w-screen h-screen bg-gray-50 overflow-hidden">
     <Navbar />
     <div class="w-full h-full flex flex-col lg:flex-row">
       <div class="mx-auto my-auto">

@@ -70,19 +70,16 @@ class Auth {
         }
         // Sign in with Facebook Account
         case "facebook": {
-          alert("Tinh nang bao tri");
+          const provider = new firebase.auth.FacebookAuthProvider();
 
-          // const provider = new firebase.auth.FacebookAuthProvider();
-
-          // await firebase
-          //   .auth()
-          //   .signInWithPopup(provider)
-          //   .then(result => {
-          //     console.log(result);
-          //     // const data = result.additionalUserInfo.profile;
-          //     // const user = User.createUser(data.email, data.name, data.picture);
-          //     // User.registerUser(user);
-          //   });
+          await firebase
+            .auth()
+            .signInWithPopup(provider)
+            .then(result => {
+              // const data = result.additionalUserInfo.profile;
+              // const user = User.createUser(data.email, data.name, data.picture);
+              // User.registerUser(user);
+            });
           break;
         }
         default:

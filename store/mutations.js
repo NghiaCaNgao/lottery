@@ -11,7 +11,8 @@ export default {
       email: authUser.email,
       name: authUser.displayName,
       emailVerified: authUser.emailVerified,
-      provider: claims.firebase.sign_in_provider,
+      provider:
+        claims.firebase.sign_in_provider || authUser.providerData.providerId,
       avatar: authUser.photoURL
     };
   }
