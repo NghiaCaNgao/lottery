@@ -24,6 +24,8 @@ module.exports = {
     "vue/prop-name-casing": "off",
     "arrow-parens": "off",
     "vue/max-attributes-per-line": "off",
-    camelcase: "off"
+    camelcase: "off",
+    "vue/html-closing-bracket-newline": "off",
+    "vue/html-indent": "off"
   }
 };

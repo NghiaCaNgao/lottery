@@ -23,7 +23,7 @@
           :class="{
             active: views.info
           }"
-          @click="views.info = !views.info"
+          @click="updateViews('info')"
         >
           <unicon name="share"></unicon>
         </button>
@@ -31,7 +31,7 @@
           :class="{
             active: views.onlineUser
           }"
-          @click="views.onlineUser = !views.onlineUser"
+          @click="updateViews('onlineUser')"
         >
           <unicon name="users-alt"></unicon>
         </button>
@@ -39,7 +39,7 @@
           :class="{
             active: views.history
           }"
-          @click="views.history = !views.history"
+          @click="updateViews('history')"
         >
           <unicon name="history-alt"></unicon>
         </button>
@@ -47,7 +47,7 @@
           :class="{
             active: views.chat
           }"
-          @click="views.chat = !views.chat"
+          @click="updateViews('chat')"
         >
           <unicon name="chat"></unicon>
         </button>
@@ -55,7 +55,7 @@
           :class="{
             active: views.rule
           }"
-          @click="views.rule = !views.rule"
+          @click="updateViews('rule')"
         >
           <unicon name="ruler"></unicon>
         </button>
@@ -69,19 +69,23 @@ export default {
   data() {
     return {
       roomID: null,
-      roomName: "Hallo",
-      views: {
-        info: true,
-        onlineUser: true,
-        chat: false,
-        history: true,
-        rule: false
-      }
+      roomName: "Hallo"
     };
   },
+  computed: {
+    views: {
+      get() {
+        return this.$store.state.playground.views;
+      }
+    }
+  },
   created() {
-    console.log(this.$route.params);
     this.roomID = this.$route.params.roomID;
+  },
+  methods: {
+    updateViews(view) {
+      this.$store.commit("playground/updateViews", view);
+    }
   }
 };
 </script>

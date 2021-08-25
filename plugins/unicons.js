@@ -3,10 +3,13 @@ import Unicon from "vue-unicons/dist/vue-unicons-vue2.umd";
 import {
   uniArrowRight,
   uniChat,
+  uniCopy,
   uniFacebookF,
   uniHistoryAlt,
   uniLinkedin,
+  uniMessage,
   uniRuler,
+  uniSearch,
   uniShare,
   uniUsersAlt,
   uniYoutube
@@ -21,6 +24,9 @@ Unicon.add([
   uniUsersAlt,
   uniHistoryAlt,
   uniChat,
-  uniRuler
+  uniRuler,
+  uniCopy,
+  uniMessage,
+  uniSearch
 ]);
 Vue.use(Unicon);
