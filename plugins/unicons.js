@@ -3,16 +3,21 @@ import Unicon from "vue-unicons/dist/vue-unicons-vue2.umd";
 import {
   uniApps,
   uniArrowRight,
+  uniBell,
   uniChat,
   uniCopy,
   uniFacebookF,
   uniHistoryAlt,
   uniLinkedin,
   uniMessage,
+  uniPlusCircle,
   uniRuler,
   uniSearch,
   uniShare,
+  uniShop,
   uniSignout,
+  uniTennisBall,
+  uniUser,
   uniUsersAlt,
   uniYoutube
 } from "vue-unicons/dist/icons";
@@ -31,6 +36,11 @@ Unicon.add([
   uniMessage,
   uniSearch,
   uniSignout,
-  uniApps
+  uniApps,
+  uniBell,
+  uniUser,
+  uniTennisBall,
+  uniPlusCircle,
+  uniShop
 ]);
 Vue.use(Unicon);

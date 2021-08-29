@@ -52,7 +52,6 @@ export default {
   },
   watch: {
     history(new_val) {
-      console.log(new_val);
       const new_info = [];
       const now = Date.now();
 

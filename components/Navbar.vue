@@ -37,9 +37,6 @@
           Dasboard
         </a>
         <div class="my-auto mx-4">
-          <!-- <div class="avatar-small cursor-pointer">
-            <img :src="currentUser.avatar" class="w-full" />
-          </div> -->
           <MenuContext
             :image="currentUser.avatar"
             type="image"

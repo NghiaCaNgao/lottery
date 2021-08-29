@@ -67,6 +67,12 @@
 
     <div class="flex items-center">
       <client-only>
+        <MenuContext
+          type="icon"
+          mode="notification_box"
+          icon="bell"
+          :data_notification="data_notification"
+        />
         <MenuContext type="icon" :data_menu_context="data_menu_context" />
         <button
           id="signout_btn"
@@ -94,17 +100,43 @@ export default {
         {
           id: "0",
           href: "/user",
-          text: "Profile"
+          text: "Profile",
+          icon: "user"
         },
         {
           id: "1",
           href: "/play",
-          text: "Play center"
+          text: "Play center",
+          icon: "tennis-ball"
         },
         {
           id: "2",
+          href: "/create",
+          text: "Create Room",
+          icon: "plus-circle"
+        },
+        {
+          id: "3",
           href: "/user/games",
-          text: "Your games"
+          text: "Your games",
+          icon: "shop"
+        }
+      ],
+      data_notification: [
+        {
+          id: "0",
+          title: "Aw",
+          text: "Cho gi an nay"
+        },
+        {
+          id: "1",
+          title: "May oi",
+          text: "Doi lam roi"
+        },
+        {
+          id: "2",
+          title: "An shit ko. Tao cho ca mot dong luon ne",
+          text: "Thich noi nua tao cho an ca bat shit"
         }
       ]
     };
