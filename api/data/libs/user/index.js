@@ -1,7 +1,7 @@
 import firebase from "firebase/app";
+import Extension from "../extension";
 import "firebase/firestore";
 import "firebase/database";
-import Extension from "./extensions";
 
 class User {
   // Initial user data object
@@ -21,7 +21,9 @@ class User {
       name: displayName,
       verified_email: emailVerified,
       provider: providerData[0].providerId,
-      avatar: photoURL,
+      avatar:
+        photoURL ||
+        "https://i.pinimg.com/474x/44/63/a2/4463a2b6260a0e6c3c7655eda69f2696.jpg",
       nickname: null,
       color: "blue",
       hasNickname: false,
@@ -42,7 +44,7 @@ class User {
 
   // deleteAccount
   static deleteAccount() {
-    alert("Chua co gi");
+    //  nothing
   }
 
   // resetPassword

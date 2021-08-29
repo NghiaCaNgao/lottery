@@ -87,7 +87,7 @@
 </template>
 
 <script>
-import * as api from "../api";
+import API from "@@/api/data";
 export default {
   name: "Signin",
   data() {
@@ -108,7 +108,7 @@ export default {
       // Disbale button
       e.target.disabled = true;
 
-      api.Auth.signIn("email", this.form)
+      API.Auth.signIn("email", this.form)
         .then(() => {
           // on success
           e.target.disabled = false;
@@ -117,7 +117,7 @@ export default {
         .catch(error => {
           // on error
           e.target.disabled = false;
-          api.Extension.showNotification(
+          API.Extension.showNotification(
             "warning",
             "Error: " + error.code,
             error.message
@@ -128,7 +128,7 @@ export default {
       // Disbale button
       e.target.disabled = true;
 
-      api.Auth.signIn("google")
+      API.Auth.signIn("google")
         .then(() => {
           // on success
           e.target.disabled = false;
@@ -137,7 +137,7 @@ export default {
         .catch(error => {
           // on error
           e.target.disabled = false;
-          api.Extension.showNotification(
+          API.Extension.showNotification(
             "warning",
             "Error: " + error.code,
             error.message
@@ -148,7 +148,7 @@ export default {
       // Disbale button
       e.target.disabled = true;
 
-      api.Auth.signIn("facebook")
+      API.Auth.signIn("facebook")
         .then(() => {
           // on success
           e.target.disabled = false;
@@ -157,7 +157,7 @@ export default {
         .catch(error => {
           // on error
           e.target.disabled = false;
-          api.Extension.showNotification(
+          API.Extension.showNotification(
             "warning",
             "Error: " + error.code,
             error.message
@@ -169,12 +169,12 @@ export default {
       e.target.disabled = true;
 
       // Sign up action
-      api.Auth.signUp(this.form)
+      API.Auth.signUp(this.form)
         .then(() => {
           // on success
           e.target.disabled = false;
           this.register = false;
-          api.Extension.showNotification(
+          API.Extension.showNotification(
             null,
             "Create success",
             "Now you can login to your account and start your world"
@@ -183,7 +183,7 @@ export default {
         .catch(error => {
           // on error
           e.target.disabled = false;
-          api.Extension.showNotification(
+          API.Extension.showNotification(
             "warning",
             "Error: " + error.code,
             error.message

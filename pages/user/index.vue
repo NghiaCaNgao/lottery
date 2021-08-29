@@ -120,8 +120,8 @@
 </template>
 <script>
 import swal from "sweetalert";
-import Navbar from "../../components/Navbar.vue";
-import * as api from "../../api";
+import Navbar from "@@/components/Navbar.vue";
+import API from "@@/api/data";
 export default {
   name: "User",
   components: {
@@ -141,18 +141,18 @@ export default {
   },
 
   async mounted() {
-    this.form = await api.User.loadCurrentUserData(this.currentUser.uid);
+    this.form = await API.User.loadCurrentUserData(this.currentUser.uid);
   },
 
   methods: {
     signOut() {
-      api.Auth.signOut().then(() => {
+      API.Auth.signOut().then(() => {
         window.open("/login", "_self");
       });
     },
     update(e) {
       e.target.disabled = true;
-      api.User.updateUser(this.currentUser.uid, this.form)
+      API.User.updateUser(this.currentUser.uid, this.form)
         .then(() => {
           e.target.disabled = false;
           swal("Good job!", "Updated!", "success");

@@ -5,6 +5,7 @@
         "firestore",
         "nuxtjs",
         "qwertyuiopasdfghjklzxcvbnm",
+        "swal",
         "sweetalert",
         "tailwindcss",
         "toastification",

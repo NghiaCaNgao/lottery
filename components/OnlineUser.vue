@@ -1,32 +1,11 @@
 <template>
-  <div class="h-full flex flex-col overflow-y-scroll bg-white shadow-lg rounded-md m-3">
+  <div
+    class="h-full flex flex-col overflow-y-scroll bg-white shadow-lg rounded-md m-3"
+  >
     <HeaderPanel color="green" title="Online User" />
 
     <div class="h-full m-3 p-2 overflow-y-scroll">
-      <User />
-      <User />
-      <User />
-      <User />
-      <User />
-      <User />
-      <User />
-      <User />
-      <User />
-      <User />
-      <User />
-      <User />
-      <User />
-      <User />
-      <User />
-      <User />
-      <User />
-      <User />
-      <User />
-      <User />
-      <User />
-      <User />
-      <User />
-      <User />
+      <User v-for="item in onlineUsers" :key="item.uid" :data="item" />
     </div>
 
     <div class="input-message flex items-center p-2 px-5">
@@ -45,6 +24,7 @@
 </template>
 
 <script>
+import API from "@@/api/data";
 import User from "./User.vue";
 import HeaderPanel from "./HeaderPanel.vue";
 export default {
@@ -52,6 +32,22 @@ export default {
   components: {
     User,
     HeaderPanel
+  },
+  computed: {
+    onlineUsers() {
+      return this.$store.state.playground.onlineUsers;
+    },
+    roomID() {
+      return this.$route.params.roomID;
+    }
+  },
+  created() {
+    this.listenData();
+  },
+  methods: {
+    listenData() {
+      API.Room.OnlineUser.listenData.call(this, this.roomID);
+    }
   }
 };
 </script>

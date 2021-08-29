@@ -2,6 +2,7 @@
   <div class="w-full flex flex-col m-3 bg-white shadow-lg rounded-md">
     <HeaderPanel color="yellow" title="Chat" />
     <div
+      id="box_message"
       class="h-full bg-gray-100 rounded-md m-3 p-2 overflow-y-scroll"
     >
       <div
@@ -13,37 +14,45 @@
         }"
       >
         <div class="h-7 w-7 rounded-full overflow-hidden">
-          <img
-            src="https://i.pinimg.com/474x/44/63/a2/4463a2b6260a0e6c3c7655eda69f2696.jpg"
-            class="h-full"
-          />
+          <img :src="item.user.avatar" class="h-full" />
         </div>
-        <div>
+        <div
+          class="flex flex-col"
+          :class="{
+            'items-end': item.isMe
+          }"
+        >
           <div
-            class="mx-3 p-2 rounded-md font-semibold"
+            class="mx-3 p-2 px-3 rounded-full font-semibold w-max"
             :class="{
               'bg-gray-200': !item.isMe,
               'bg-pink-200': item.isMe,
               'text-pink-500': item.isMe
             }"
           >
-            <span>Anh thich em cuc ky luon y</span>
+            <span>{{ item.messageText }}</span>
           </div>
           <div class="mx-3 my-1 flex justify-end">
-            <span class="mx-1 text-sm text-gray-400"> Nghiacangao</span>
-            <span class="mx-1 text-sm text-gray-400"> 13:00</span>
+            <span class="mx-1 text-sm text-gray-400">
+              {{ item.user.name }}</span
+            >
+            <span class="mx-1 text-sm text-gray-400">
+              {{ formatTime(item.timestamp) }}</span
+            >
           </div>
         </div>
       </div>
     </div>
     <div class="input-message flex items-center p-2 px-5">
       <input
+        id="messageText"
         type="text"
         placeholder="Type message"
         class="m-3 p-2 px-3 bg-indigo-50 rounded-full focus:outline-none w-full"
+        @keyup.enter="pushMessage"
       />
       <client-only>
-        <button>
+        <button @click="pushMessage">
           <unicon name="message"></unicon>
         </button>
       </client-only>
@@ -51,33 +60,50 @@
   </div>
 </template>
 <script>
+import API from "@@/api/data";
 import HeaderPanel from "./HeaderPanel.vue";
 export default {
   name: "Chat",
   components: {
     HeaderPanel
   },
-  data() {
-    return {
-      messages: [
-        { id: 1, isMe: false },
-        { id: 2, isMe: true },
-        { id: 3, isMe: true },
-        { id: 4, isMe: true },
-        { id: 5, isMe: true },
-        { id: 6, isMe: false },
-        { id: 7, isMe: true },
-        { id: 9, isMe: true },
-        { id: 10, isMe: true },
-        { id: 11, isMe: true },
-        { id: 12, isMe: true },
-        { id: 13, isMe: true },
-        { id: 14, isMe: true },
-        { id: 15, isMe: true },
-        { id: 16, isMe: true },
-        { id: 17, isMe: true }
-      ]
-    };
+  computed: {
+    messages() {
+      return this.$store.state.playground.messages;
+    },
+    roomID() {
+      return this.$route.params.roomID;
+    },
+    user() {
+      return this.$store.getters.displayUser;
+    }
+  },
+  created() {
+    this.listenData();
+  },
+  updated() {
+    const lastElementChild = document.getElementById("box_message")
+      .lastElementChild;
+    lastElementChild.scrollIntoView();
+  },
+  methods: {
+    listenData() {
+      API.Room.Message.listenData.call(this, this.roomID, this.user.uid);
+    },
+    pushMessage() {
+      try {
+        const element = document.getElementById("messageText");
+        const value = element.value;
+        if (value.trim() !== "")
+          API.Room.Message.addMessage(this.roomID, this.user, value);
+        element.value = "";
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    formatTime(time) {
+      return API.Extension.formatTime(time);
+    }
   }
 };
 </script>
@@ -86,5 +112,8 @@ export default {
   svg {
     fill: #6366f1;
   }
+}
+#box_message {
+  scroll-behavior: smooth;
 }
 </style>

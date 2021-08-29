@@ -26,13 +26,14 @@
 </template>
 
 <script>
-import HeaderGame from "../../components/HeaderGame.vue";
-import Rule from "../../components/Rule.vue";
-import OnlineUser from "../../components/OnlineUser.vue";
-import Info from "../../components/Info.vue";
-import History from "../../components/History.vue";
-import Chat from "../../components/Chat.vue";
-import Game from "../../components/Game.vue";
+import HeaderGame from "@@/components/HeaderGame.vue";
+import Rule from "@@/components/Rule.vue";
+import OnlineUser from "@@/components/OnlineUser.vue";
+import Info from "@@/components/Info.vue";
+import History from "@@/components/History.vue";
+import Chat from "@@/components/Chat.vue";
+import Game from "@@/components/Game.vue";
+import API from "@@/api/data";
 export default {
   name: "Hello",
   components: {
@@ -45,14 +46,48 @@ export default {
     Game
   },
   computed: {
-    views: {
-      get() {
-        return this.$store.state.playground.views;
-      }
+    views() {
+      return this.$store.state.playground.views;
+    },
+    user() {
+      return this.$store.getters.displayUser;
+    },
+    roomID() {
+      return this.$route.params.roomID;
+    }
+  },
+
+  created() {
+    if (process.client) {
+      addEventListener("beforeunload", e => {
+        e.preventDefault();
+        e.returnValue = "";
+
+        API.Room.OnlineUser.removeOnlineUserOnDisconnect(
+          this.roomID,
+          this.user.uid
+        );
+        API.Room.History.addHistory(this.roomID, this.user, {
+          action: API.Room.History.action.LOGOUT
+        });
+      });
+    }
+    if (this.user.avatar) {
+      this.joinRoom();
+    }
+  },
+
+  methods: {
+    joinRoom() {
+      API.Room.OnlineUser.addOnlineUser(this.roomID, this.user);
+      API.Room.History.addHistory(this.roomID, this.user, {
+        action: API.Room.History.action.LOGIN
+      });
     }
   }
 };
 </script>
+
 <style lang="scss">
 ::-webkit-scrollbar {
   width: 7px;

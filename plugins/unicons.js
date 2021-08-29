@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Unicon from "vue-unicons/dist/vue-unicons-vue2.umd";
 import {
+  uniApps,
   uniArrowRight,
   uniChat,
   uniCopy,
@@ -11,6 +12,7 @@ import {
   uniRuler,
   uniSearch,
   uniShare,
+  uniSignout,
   uniUsersAlt,
   uniYoutube
 } from "vue-unicons/dist/icons";
@@ -27,6 +29,8 @@ Unicon.add([
   uniRuler,
   uniCopy,
   uniMessage,
-  uniSearch
+  uniSearch,
+  uniSignout,
+  uniApps
 ]);
 Vue.use(Unicon);

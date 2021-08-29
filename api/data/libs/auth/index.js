@@ -1,6 +1,6 @@
 import firebase from "firebase/app";
+import User from "../user";
 import "firebase/auth";
-import User from "./user";
 
 class Auth {
   // logout current user

@@ -11,20 +11,24 @@
       >
         <div class="flex items-center">
           <div class="h-7 w-7 rounded-full overflow-hidden">
-            <img
-              src="https://i.pinimg.com/474x/44/63/a2/4463a2b6260a0e6c3c7655eda69f2696.jpg"
-              height="h-full"
-            />
+            <img :src="item.user.avatar" height="h-full" />
           </div>
-          <h1 class="mx-3 font-semibold text-gray-500">Nghiacangao</h1>
+          <h1 class="mx-3 font-semibold text-gray-500">{{ item.user.name }}</h1>
           <span
-            class="text-red-500 text-sm bg-red-100 font-semibold px-2 rounded-full"
+            v-if="item.action.action"
+            class=" text-sm font-semibold px-2 rounded-full"
+            :class="{
+              'text-red-500 bg-red-100': item.action.action === action.LOGOUT,
+              'text-green-500 bg-green-100': item.action.action === action.LOGIN
+            }"
           >
-            Logout</span
+            {{ item.action.action }}</span
           >
         </div>
         <div>
-          <span class="text-gray-400 text-sm">13:06</span>
+          <span class="text-gray-400 text-sm">{{
+            formatTime(item.timestamp)
+          }}</span>
         </div>
       </div>
     </div>
@@ -32,21 +36,54 @@
 </template>
 
 <script>
+import API from "@@/api/data";
 export default {
   name: "History",
-  data() {
-    return {
-      history: [
-        { id: "1" },
-        { id: "2" },
-        { id: "3" },
-        { id: "4" },
-        { id: "5" },
-        { id: "6" },
-        { id: "7" },
-        { id: "8" }
-      ]
-    };
+  computed: {
+    history() {
+      return this.$store.state.playground.history;
+    },
+    roomID() {
+      return this.$route.params.roomID;
+    },
+    action() {
+      return API.Room.History.action;
+    }
+  },
+  watch: {
+    history(new_val) {
+      console.log(new_val);
+      const new_info = [];
+      const now = Date.now();
+
+      for (const item in new_val) {
+        if (now - new_val[item].timestamp < 1500) {
+          new_info.push(new_val[item]);
+        }
+      }
+
+      new_info.forEach(item => {
+        if (item.action && item.action.action) {
+          API.Extension.showNotification(
+            "info",
+            "New player",
+            `${item.user.name} ${item.action.action}`
+          );
+        }
+      });
+    }
+  },
+  created() {
+    this.listenData();
+  },
+
+  methods: {
+    listenData() {
+      API.Room.History.listenData.call(this, this.roomID);
+    },
+    formatTime(time) {
+      return API.Extension.formatTime(time);
+    }
   }
 };
 </script>

@@ -8,8 +8,8 @@ export default {
   },
   displayUser: state => {
     try {
-      const { name, avatar } = state.authUser;
-      return { name, avatar };
+      const { name, avatar, uid } = state.authUser;
+      return { name, avatar, uid };
     } catch {
       return undefined;
     }

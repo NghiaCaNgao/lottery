@@ -2,14 +2,16 @@
   <div
     class="m-5 p-3 bg-white rounded-lg flex justify-evenly items-center shadow-lg"
   >
+    <!-- Logo -->
     <div>
       <img src="../static/images/logo.png" />
     </div>
+    <!-- Room INfo -->
     <div>
       <span
         class="bg-indigo-50 text-indigo-500 rounded-md font-semibold p-1 m-2"
       >
-        {{ roomID }}
+        {{ host }}
       </span>
       <span
         class="bg-yellow-50 text-yellow-500 rounded-md font-semibold p-1 m-2"
@@ -17,6 +19,7 @@
         {{ roomName }}
       </span>
     </div>
+    <!-- component views -->
     <div class="group-toogle-btn">
       <client-only>
         <button
@@ -61,30 +64,62 @@
         </button>
       </client-only>
     </div>
+
+    <div class="flex items-center">
+      <client-only>
+        <MenuContext type="icon" :data_menu_context="data_menu_context" />
+        <button
+          id="signout_btn"
+          class="bg-red-100 p-2 rounded-full flex justify-center items-center m-2"
+          @click="quitRoom"
+        >
+          <unicon name="signout"></unicon>
+        </button>
+      </client-only>
+    </div>
   </div>
 </template>
 <script>
+import MenuContext from "./MenuContext.vue";
 export default {
   name: "HeaderGame",
+  components: {
+    MenuContext
+  },
   data() {
     return {
-      roomID: null,
-      roomName: "Hallo"
+      host: "Nghia",
+      roomName: "Hallo",
+      data_menu_context: [
+        {
+          id: "0",
+          href: "/user",
+          text: "Profile"
+        },
+        {
+          id: "1",
+          href: "/play",
+          text: "Play center"
+        },
+        {
+          id: "2",
+          href: "/user/games",
+          text: "Your games"
+        }
+      ]
     };
   },
   computed: {
-    views: {
-      get() {
-        return this.$store.state.playground.views;
-      }
+    views() {
+      return this.$store.state.playground.views;
     }
-  },
-  created() {
-    this.roomID = this.$route.params.roomID;
   },
   methods: {
     updateViews(view) {
       this.$store.commit("playground/updateViews", view);
+    },
+    quitRoom() {
+      window.open("/play", "_self");
     }
   }
 };
@@ -107,6 +142,11 @@ export default {
     &.active {
       background-color: #fadee2;
     }
+  }
+}
+#signout_btn {
+  svg {
+    fill: hotpink;
   }
 }
 </style>

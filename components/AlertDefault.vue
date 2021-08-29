@@ -45,7 +45,7 @@ export default {
   }
 }
 .Vue-Toastification__toast {
-  background-color: white;
+  background-color: white !important;
   padding: 10px;
   .notify_title {
     font-weight: 700;

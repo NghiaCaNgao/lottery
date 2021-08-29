@@ -6,11 +6,9 @@
       'hover:bg-gray-100': !isFill
     }"
   >
-    <div
-      class="object-scale-down h-10 w-10 rounded-full avatar"
-    >
+    <div class="object-scale-down h-10 w-10 rounded-full avatar">
       <img
-        src="https://i.pinimg.com/474x/44/63/a2/4463a2b6260a0e6c3c7655eda69f2696.jpg"
+        :src="data.avatar"
         class="h-full rounded-full border-2 border-yellow-500"
       />
     </div>
@@ -21,7 +19,7 @@
         'text-gray-500': !isFill
       }"
     >
-      Nghia
+      {{ data.name }}
     </h2>
   </div>
 </template>
@@ -34,6 +32,17 @@ export default {
       type: Boolean,
       default() {
         return false;
+      }
+    },
+    data: {
+      type: Object,
+      default() {
+        return {
+          name: "Nghia",
+          uid: "aaa",
+          avatar:
+            "https://i.pinimg.com/474x/44/63/a2/4463a2b6260a0e6c3c7655eda69f2696.jpg"
+        };
       }
     }
   }

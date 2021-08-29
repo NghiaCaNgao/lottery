@@ -44,8 +44,10 @@
 </template>
 
 <script>
-import Navbar from "../../components/Navbar.vue";
-import * as api from "../../api";
+import swal from "sweetalert";
+import Navbar from "@@/components/Navbar.vue";
+import API from "@@/api/data";
+
 export default {
   name: "Play",
   components: {
@@ -63,23 +65,29 @@ export default {
     };
   },
   methods: {
-    goto(e) {
+    async goto(e) {
       const roomID = e.target.value;
       if (roomID.trim() === "")
-        api.Extension.showNotification("warning", "Input wrong", "Input blank");
+        API.Extension.showNotification("warning", "Input wrong", "Input blank");
       else if (/\D/gi.test(roomID))
-        api.Extension.showNotification(
+        API.Extension.showNotification(
           "warning",
           "Input wrong",
           "Input must be numberic"
         );
       else if (roomID.length !== 6)
-        api.Extension.showNotification(
+        API.Extension.showNotification(
           "warning",
           "Input wrong",
           "Must be 6 numbers"
         );
-      else window.open(`/play/${roomID}`, "_self");
+      else if (!(await API.Room.RoomData.isExist(roomID))) {
+        swal(
+          "Invalid room ID",
+          "May be the room have not created. Please try again",
+          "warning"
+        );
+      } else window.open(`/play/${roomID}`, "_self");
     }
   }
 };
